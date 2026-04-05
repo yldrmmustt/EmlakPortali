@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9);">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 fw-bold text-primary">Hesap Oluştur</h2>
+                    <div id="registerAlert" class="alert d-none"></div>
+                    <form id="registerForm">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">Ad</label>
+                                <input type="text" id="FirstName" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Soyad</label>
+                                <input type="text" id="LastName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">E-posta Adresi</label>
+                            <input type="email" id="Email" class="form-control" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Şifre (Min 6 karakter, Büyük/Küçük harf, Sayı ve Özel Karakter)</label>
+                            <input type="password" id="Password" class="form-control" required autocomplete="new-password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Kayıt Ol</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <small>Zaten hesabınız var mı? <a href="/Account/Login">Giriş Yap</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#registerForm").submit(function (e) {
+                e.preventDefault();
+                const dto = {
+                    firstName: $("#FirstName").val(),
+                    lastName: $("#LastName").val(),
+                    email: $("#Email").val(),
+                    password: $("#Password").val()
+                };
+
+                $.ajax({
+                    url: "https://localhost:7185/api/Auth/register",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(dto),
+                    success: function (res) {
+                        $("#registerAlert").removeClass("d-none alert-danger").addClass("alert-success").text("Hesap oluşturuldu! Giriş yapabilirsiniz.");
+                        setTimeout(() => window.location.href = "/Account/Login", 2000);
+                    },
+                    error: function (err) {
+                        let msg = err.responseJSON ? err.responseJSON.message : "Bilinmeyen bir hata oluştu";
+                        $("#registerAlert").removeClass("d-none alert-success").addClass("alert-danger").text(msg);
+                    }
+                });
+            });
+        });
+    </script>
+}

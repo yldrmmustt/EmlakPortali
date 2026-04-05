@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "Ana Sayfa - Emlak Portalı";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 text-center text-white bg-primary p-5 rounded shadow">
+            <h1 class="display-4 fw-bold">Emlak Portalı'na Hoş Geldiniz</h1>
+            <p class="lead">Hayalinizdeki Evi Hemen Bulun!</p>
+        </div>
+    </div>
+
+    <!-- Filtreleme Alanı -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-body row g-3">
+                    <div class="col-md-4">
+                        <select class="form-select" id="cityFilter">
+                            <option value="">Tüm Şehirler</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">Tüm Kategoriler</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-dark w-100" id="btnSearch">Ara</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- İlan Listesi -->
+    <div class="row" id="propertyList">
+        <!-- JS ile doldurulacak -->
+        <div class="col-12 text-center" id="loadingDiv">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">İlanlar yükleniyor...</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const API_BASE = "https://localhost:7185/api";
+            
+            // Filtre dropdownlarını doldur
+            $.get(API_BASE + "/Cities", function (cities) {
+                cities.forEach(c => $("#cityFilter").append(`<option value="${c.id}">${c.name}</option>`));
+            });
+            $.get(API_BASE + "/Categories", function (cats) {
+                cats.forEach(c => $("#categoryFilter").append(`<option value="${c.id}">${c.name}</option>`));
+            });
+
+            function loadProperties(cityId, categoryId) {
+                $("#loadingDiv").show();
+                $("#propertyList .property-card-col").remove();
+
+                let url = API_BASE + "/Properties";
+                let params = [];
+                if(cityId) params.push("cityId=" + cityId);
+                if(categoryId) params.push("categoryId=" + categoryId);
+                if(params.length > 0) url += "?" + params.join("&");
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function (data) {
+                        $("#loadingDiv").hide();
+                        
+                        if (data && data.length > 0) {
+                            $.each(data, function (index, property) {
+                                let imageUrl = property.imageUrls && property.imageUrls.length > 0 
+                                    ? "https://localhost:7185" + property.imageUrls[0] 
+                                    : "https://via.placeholder.com/400x250?text=G%C3%B6rsel+Yok";
+
+                                let cardHtml = `
+                                    <div class="col-md-4 mb-4 property-card-col">
+                                        <div class="card h-100 shadow border-0" style="transition: transform 0.2s;">
+                                            <img src="${imageUrl}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
+                                            <div class="card-body position-relative">
+                                                <span class="position-absolute top-0 end-0 badge bg-danger m-3 fs-6">${property.status}</span>
+                                                <h4 class="text-primary fw-bold mt-2">₺${property.price.toLocaleString('tr-TR')}</h4>
+                                                <h6 class="card-title text-truncate fw-bold" title="${property.title}">${property.title}</h6>
+                                                <p class="card-text text-muted small mb-3">
+                                                    <i class="bi bi-geo-alt-fill text-danger"></i> ${property.cityName} / ${property.districtName} <br />
+                                                    <i class="bi bi-tags-fill text-success"></i> ${property.categoryName}
+                                                </p>
+                                                <div class="row text-muted small border-top pt-3 text-center w-100 mx-0">
+                                                    <div class="col-4 border-end px-0"><i class="bi bi-door-open fs-5 d-block"></i> ${property.roomCount} Oda</div>
+                                                    <div class="col-4 border-end px-0"><i class="bi bi-aspect-ratio fs-5 d-block"></i> ${property.grossSquareMeters} m²</div>
+                                                    <div class="col-4 px-0"><i class="bi bi-building fs-5 d-block"></i> ${property.buildingAge} Yaşında</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-transparent border-0 pb-3 p-3">
+                                                <a href="/Property/Details/${property.id}" class="btn btn-outline-primary w-100 fw-bold">İlan Detayı</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                $("#propertyList").append(cardHtml);
+                            });
+                        } else {
+                            $("#propertyList").append('<div class="col-12 text-center text-muted property-card-col my-5"><h5>Arama kriterlerinize uygun ilan bulunamadı.</h5></div>');
+                        }
+                    },
+                    error: function (err) {
+                        $("#loadingDiv").hide();
+                        $("#propertyList").append('<div class="col-12 text-center text-danger property-card-col my-5"><h5>Bağlantı hatası: Backend API ayakta değil!</h5></div>');
+                    }
+                });
+            }
+
+            // Başlangıçta tüm ilanları yükle
+            loadProperties();
+
+            $("#btnSearch").click(function(){
+                loadProperties($("#cityFilter").val(), $("#categoryFilter").val());
+            });
+        });
+    </script>
+}

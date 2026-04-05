@@ -1,0 +1,129 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-list-columns-reverse text-primary"></i> İlan Yönetimi</h2>
+    <div id="actionAlert" class="alert d-none py-2 px-4 mb-0"></div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="50">ID</th>
+                        <th width="80">Görsel</th>
+                        <th>Başlık</th>
+                        <th>Fiyat</th>
+                        <th>Durum</th>
+                        <th>Şehir/İlçe</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="adminPropertyList">
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <p class="mt-2 text-muted mb-0">İlanlar Yükleniyor...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const API_BASE = "https://localhost:7185/api";
+            
+            function loadAdminProperties() {
+                $.ajax({
+                    url: API_BASE + "/Properties",
+                    type: "GET",
+                    success: function (data) {
+                        $("#adminPropertyList").empty();
+                        
+                        if (data && data.length > 0) {
+                            $.each(data, function (index, property) {
+                                let imageUrl = property.imageUrls && property.imageUrls.length > 0 
+                                    ? "https://localhost:7185" + property.imageUrls[0] 
+                                    : "https://via.placeholder.com/80x50?text=Yok";
+
+                                // Durum rozeti ve pasif stili
+                                let statusBadge = property.isActive 
+                                    ? `<span class="badge bg-success">Aktif</span>` 
+                                    : `<span class="badge bg-secondary">Pasif</span>`;
+                                    
+                                let trClass = property.isActive ? "" : "opacity-50 bg-light";
+                                let actionBtnClass = property.isActive ? "btn-outline-danger" : "btn-outline-success";
+                                let actionBtnIcon = property.isActive ? "bi-trash3" : "bi-arrow-counterclockwise";
+                                let actionBtnText = property.isActive ? "Pasife Çek" : "Aktif Et";
+
+                                let row = `
+                                    <tr class="${trClass}">
+                                        <td class="fw-bold">#${property.id}</td>
+                                        <td><img src="${imageUrl}" class="rounded" style="width: 80px; height: 50px; object-fit: cover;"></td>
+                                        <td class="fw-semibold text-truncate" style="max-width: 250px;">${property.title}</td>
+                                        <td class="fw-bold text-primary">₺${property.price.toLocaleString('tr-TR')}</td>
+                                        <td>${statusBadge}</td>
+                                        <td class="text-muted"><i class="bi bi-geo-alt"></i> ${property.cityName}/${property.districtName}</td>
+                                        <td class="text-end">
+                                            <a href="/Property/Details/${property.id}" class="btn btn-sm btn-info text-white" target="_blank" title="İlanı Gör"><i class="bi bi-eye"></i></a>
+                                            <button class="btn btn-sm ${actionBtnClass} ms-1 toggle-status-btn" data-id="${property.id}" title="${actionBtnText}">
+                                                <i class="bi ${actionBtnIcon}"></i> ${actionBtnText}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `;
+                                $("#adminPropertyList").append(row);
+                            });
+
+                            // Buton click eventi
+                            $(".toggle-status-btn").click(function() {
+                                let propId = $(this).data("id");
+                                toggleStatus(propId);
+                            });
+
+                        } else {
+                            $("#adminPropertyList").append('<tr><td colspan="7" class="text-center text-muted py-4">Sistemde henüz hiç ilan yok.</td></tr>');
+                        }
+                    },
+                    error: function(err) {
+                        $("#adminPropertyList").html('<tr><td colspan="7" class="text-center text-danger py-4">Veriler çekilirken API hatası oluştu!</td></tr>');
+                    }
+                });
+            }
+
+            // Pasife Al / Aktif Et fonksiyonu
+            function toggleStatus(id) {
+                if(!confirm(`Seçili ilanın durumunu değiştirmek (Aktif->Pasif veya Pasif->Aktif) istediğinize emin misiniz?`)) return;
+
+                $.ajax({
+                    url: API_BASE + `/Properties/toggle-status/${id}`,
+                    type: "PUT",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function (res) {
+                        $("#actionAlert").removeClass("d-none alert-danger").addClass("alert-success").text(res.message).show();
+                        loadAdminProperties(); // Tabloyu yenile
+                        setTimeout(() => $("#actionAlert").fadeOut(), 3000);
+                    },
+                    error: function (err) {
+                        let msg = "İşlem yetkisiz veya API bağlantı hatası.";
+                        if(err.status === 403 || err.status === 401) msg = "Bu işlem için yetkiniz yok!";
+                        $("#actionAlert").removeClass("d-none alert-success").addClass("alert-danger").text(msg).show();
+                        setTimeout(() => $("#actionAlert").fadeOut(), 3000);
+                    }
+                });
+            }
+
+            loadAdminProperties();
+        });
+    </script>
+}

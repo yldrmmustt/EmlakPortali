@@ -1,0 +1,190 @@
+@{
+    ViewData["Title"] = "İlan Ver";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white p-4">
+                    <h3 class="mb-0"><i class="bi bi-house-add"></i> Yeni İlan Ekle</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div id="createAlert" class="alert d-none"></div>
+                    <form id="createPropertyForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">İlan Başlığı</label>
+                            <input type="text" id="Title" name="Title" class="form-control" required placeholder="Örn: Denize Sıfır Sahibinden 3+1 Lüks Daire">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Açıklama</label>
+                            <textarea id="Description" name="Description" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fiyat (₺)</label>
+                                <input type="number" id="Price" name="Price" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Durum</label>
+                                <select id="Status" name="Status" class="form-select" required>
+                                    <option value="Satılık">Satılık</option>
+                                    <option value="Kiralık">Kiralık</option>
+                                    <option value="Günlük Kiralık">Günlük Kiralık</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Kategori</label>
+                                <select id="CategoryId" name="CategoryId" class="form-select" required>
+                                    <option value="">Seçiniz</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Şehir</label>
+                                <select id="CityId" name="CityId" class="form-select" required>
+                                    <option value="">Seçiniz</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">İlçe</label>
+                                <select id="DistrictId" name="DistrictId" class="form-select" required>
+                                    <option value="">Önce Şehir Seçin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Oda Sayısı</label>
+                                <input type="text" id="RoomCount" name="RoomCount" class="form-control" placeholder="3+1" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Brüt m²</label>
+                                <input type="number" id="GrossSquareMeters" name="GrossSquareMeters" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Net m²</label>
+                                <input type="number" id="NetSquareMeters" name="NetSquareMeters" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Bina Yaşı</label>
+                                <input type="number" id="BuildingAge" name="BuildingAge" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Isıtma Tipi</label>
+                                <input type="text" id="HeatingType" name="HeatingType" class="form-control" placeholder="Kombi (Doğalgaz)" required>
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="HasBalcony" name="HasBalcony" value="true">
+                                    <label class="form-check-label">Balkon</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="HasElevator" name="HasElevator" value="true">
+                                    <label class="form-check-label">Asansör</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="IsFurnished" name="IsFurnished" value="true">
+                                    <label class="form-check-label">Eşyalı</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold border-bottom w-100 pb-2"><i class="bi bi-images"></i> Emlak Fotoğrafları</label>
+                            <input type="file" id="Images" name="Images" class="form-control form-control-lg" multiple accept="image/*" required>
+                            <small class="text-muted">Birden fazla resim seçebilirsiniz. İlk seçilen resim kapak resmi olacaktır.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold"><i class="bi bi-check2-circle"></i> İlanı Yayınla</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const API_BASE = "https://localhost:7185/api";
+            
+            // Eğer giriş yapmamışsa login sayfasına at
+            if (!localStorage.getItem("token")) {
+                window.location.href = "/Account/Login";
+            }
+
+            // Şehirleri doldur
+            $.get(API_BASE + "/Cities", function (cities) {
+                cities.forEach(c => $("#CityId").append(`<option value="${c.id}">${c.name}</option>`));
+            });
+            // Kategori çek
+            $.get(API_BASE + "/Categories", function (cats) {
+                cats.forEach(c => $("#CategoryId").append(`<option value="${c.id}">${c.name}</option>`));
+            });
+
+            // Şehir tetiklenince ilçe yükle
+            $("#CityId").change(function() {
+                var cityId = $(this).val();
+                $("#DistrictId").empty().append('<option value="">Seçiniz</option>');
+                
+                if(cityId) {
+                    $.get(API_BASE + "/Districts/by-city/" + cityId, function(districts) {
+                        districts.forEach(d => {
+                            $("#DistrictId").append(`<option value="${d.id}">${d.name}</option>`);
+                        });
+                    });
+                }
+            });
+
+            $("#createPropertyForm").submit(function (e) {
+                e.preventDefault();
+                
+                var formData = new FormData(this);
+                // Checkboxların false dönmesi için hack
+                if(!$('#HasBalcony').is(':checked')) formData.append('HasBalcony', 'false');
+                if(!$('#HasElevator').is(':checked')) formData.append('HasElevator', 'false');
+                if(!$('#IsFurnished').is(':checked')) formData.append('IsFurnished', 'false');
+
+                $.ajax({
+                    url: API_BASE + "/Properties",
+                    type: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        $("#createAlert").removeClass("d-none alert-danger").addClass("alert-success").text(res.message);
+                        setTimeout(() => window.location.href = "/", 1500);
+                    },
+                    error: function (err) {
+                        let errMsg = "İlan oluşturulurken hata meydana geldi. Bilgileri eksiksiz girdiğinize emin olun.";
+                        if(err.responseJSON && err.responseJSON.errors) {
+                            console.error(err.responseJSON.errors);
+                            errMsg = "Lütfen form alanlarını kontrol edin (Eksik veya geçersiz veri var).";
+                        }
+                        $("#createAlert").removeClass("d-none alert-success").addClass("alert-danger").text(errMsg);
+                        if(err.status === 401) {
+                            alert("Oturum süreniz dolmuş, lütfen tekrar giriş yapın.");
+                            localStorage.removeItem("token");
+                            window.location.href = "/Account/Login";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
