@@ -102,7 +102,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Geliştirme ortamında devre dışı
 app.UseStaticFiles();
 app.UseCors("AllowAll");
 

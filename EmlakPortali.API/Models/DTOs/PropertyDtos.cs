@@ -19,8 +19,14 @@ namespace EmlakPortali.API.Models.DTOs
         public bool HasElevator { get; set; }
         public bool IsFurnished { get; set; }
         public string Status { get; set; } = string.Empty;
+        public bool IsActive { get; set; } = true;
+        public string AppUserId { get; set; } = string.Empty;
+        public string OwnerName { get; set; } = string.Empty;
+        public string OwnerEmail { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
-        
+        public int CategoryId { get; set; }
+        public int CityId { get; set; }
+        public int DistrictId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public string CityName { get; set; } = string.Empty;
         public string DistrictName { get; set; } = string.Empty;

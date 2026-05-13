@@ -1,0 +1,104 @@
+@model List<EmlakPortali.MVC.Models.PropertyViewModel>
+@{
+    ViewData["Title"] = "İlan Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var apiBaseUrl = "http://localhost:5095";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-houses me-2 text-success"></i>İlan Yönetimi</h4>
+    <span class="badge bg-success fs-6 px-3">@(Model?.Count ?? 0) İlan</span>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:50px">ID</th>
+                        <th style="width:70px">Görsel</th>
+                        <th>Başlık</th>
+                        <th>Fiyat</th>
+                        <th>Durum</th>
+                        <th>Şehir/İlçe</th>
+                        <th>Sahip</th>
+                        <th>Tarih</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        @foreach (var p in Model)
+                        {
+                            var imageUrl = p.ImageUrls != null && p.ImageUrls.Count > 0
+                                ? apiBaseUrl + p.ImageUrls[0]
+                                : "https://via.placeholder.com/70x45?text=Yok";
+                            <tr class="@(!p.IsActive ? "table-secondary opacity-75" : "")">
+                                <td class="text-muted small">#@p.Id</td>
+                                <td>
+                                    <img src="@imageUrl" class="rounded" style="width:70px;height:45px;object-fit:cover;" />
+                                </td>
+                                <td class="fw-semibold text-truncate" style="max-width:200px;" title="@p.Title">@p.Title</td>
+                                <td class="fw-bold text-success">₺@p.Price.ToString("N0")</td>
+                                <td>
+                                    @if (p.IsActive)
+                                    {
+                                        <span class="badge badge-status-active">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-status-passive">Pasif</span>
+                                    }
+                                    <span class="badge bg-light text-dark border ms-1">@p.Status</span>
+                                </td>
+                                <td class="text-muted small">@p.CityName / @p.DistrictName</td>
+                                <td class="text-muted small">@p.OwnerName</td>
+                                <td class="text-muted small">@p.CreatedDate.ToString("dd.MM.yyyy")</td>
+                                <td class="text-end">
+                                    <div class="d-flex gap-1 justify-content-end">
+                                        <a href="/Property/Details/@p.Id" class="btn btn-sm btn-outline-secondary action-btn" target="_blank">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <form method="post" action="/Admin/TogglePropertyStatus/@p.Id" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm @(p.IsActive ? "btn-outline-warning" : "btn-outline-success") action-btn"
+                                                    title="@(p.IsActive ? "Pasife Al" : "Aktif Et")">
+                                                @if (p.IsActive)
+                                                {
+                                                    <i class="bi bi-pause-fill"></i>
+                                                    <span class="d-none d-lg-inline">Pasife Al</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-play-fill"></i>
+                                                    <span class="d-none d-lg-inline">Aktif Et</span>
+                                                }
+                                            </button>
+                                        </form>
+                                        <form method="post" action="/Admin/DeleteProperty/@p.Id" class="d-inline"
+                                              onsubmit="return confirm('Bu ilanı silmek istediğinize emin misiniz?')">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger action-btn">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-5">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>Henüz hiç ilan yok.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

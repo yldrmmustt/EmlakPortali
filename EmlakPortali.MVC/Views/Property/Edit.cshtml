@@ -1,0 +1,190 @@
+@model EmlakPortali.MVC.Models.PropertyViewModel
+@{
+    ViewData["Title"] = "İlan Düzenle";
+    var cities = ViewBag.Cities as List<EmlakPortali.MVC.Models.CityViewModel> ?? new List<EmlakPortali.MVC.Models.CityViewModel>();
+    var categories = ViewBag.Categories as List<EmlakPortali.MVC.Models.CategoryViewModel> ?? new List<EmlakPortali.MVC.Models.CategoryViewModel>();
+    var districts = ViewBag.Districts as List<EmlakPortali.MVC.Models.DistrictViewModel> ?? new List<EmlakPortali.MVC.Models.DistrictViewModel>();
+    var apiBaseUrl = ViewBag.ApiBaseUrl as string ?? "https://localhost:7185";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-warning text-dark p-4">
+                    <h3 class="mb-0"><i class="bi bi-pencil-square"></i> İlanı Düzenle</h3>
+                </div>
+                <div class="card-body p-4">
+
+                    <!-- Mevcut fotoğraflar -->
+                    @if (Model.ImageUrls != null && Model.ImageUrls.Count > 0)
+                    {
+                        <div class="mb-4">
+                            <label class="form-label fw-bold border-bottom w-100 pb-2"><i class="bi bi-images"></i> Mevcut Fotoğraflar</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var img in Model.ImageUrls)
+                                {
+                                    <img src="@(apiBaseUrl + img)" class="rounded border" style="width: 120px; height: 80px; object-fit: cover;" alt="Mevcut fotoğraf">
+                                }
+                            </div>
+                            <small class="text-muted">Yeni fotoğraf yüklerseniz mevcut fotoğraflar değiştirilir.</small>
+                        </div>
+                    }
+
+                    <form method="post" asp-controller="Property" asp-action="Edit" asp-route-id="@Model.Id" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">İlan Başlığı</label>
+                            <input type="text" name="Title" class="form-control" required value="@Model.Title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Açıklama</label>
+                            <textarea name="Description" class="form-control" rows="4" required>@Model.Description</textarea>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fiyat (₺)</label>
+                                <input type="number" name="Price" class="form-control" required value="@Model.Price">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Durum</label>
+                                <select name="Status" class="form-select" required>
+                                    <option value="Satılık" selected="@(Model.Status == "Satılık")">Satılık</option>
+                                    <option value="Kiralık" selected="@(Model.Status == "Kiralık")">Kiralık</option>
+                                    <option value="Günlük Kiralık" selected="@(Model.Status == "Günlük Kiralık")">Günlük Kiralık</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Kategori</label>
+                                <select name="CategoryId" class="form-select" required>
+                                    <option value="">Seçiniz</option>
+                                    @foreach (var cat in categories)
+                                    {
+                                        <option value="@cat.Id" selected="@(cat.Id == Model.CategoryId)">@cat.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Şehir</label>
+                                <select name="CityId" id="CityId" class="form-select" required>
+                                    <option value="">Seçiniz</option>
+                                    @foreach (var city in cities)
+                                    {
+                                        <option value="@city.Id" selected="@(city.Id == Model.CityId)">@city.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">İlçe</label>
+                                <select name="DistrictId" id="DistrictId" class="form-select" required>
+                                    <option value="">Seçiniz</option>
+                                    @foreach (var district in districts)
+                                    {
+                                        <option value="@district.Id" selected="@(district.Id == Model.DistrictId)">@district.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Oda Sayısı</label>
+                                <input type="text" name="RoomCount" class="form-control" required value="@Model.RoomCount">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Brüt m²</label>
+                                <input type="number" name="GrossSquareMeters" class="form-control" required value="@Model.GrossSquareMeters">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Net m²</label>
+                                <input type="number" name="NetSquareMeters" class="form-control" required value="@Model.NetSquareMeters">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Bina Yaşı</label>
+                                <input type="number" name="BuildingAge" class="form-control" required value="@Model.BuildingAge">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Bulunduğu Kat</label>
+                                <input type="text" name="FloorLocation" class="form-control" value="@Model.FloorLocation">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Toplam Kat Sayısı</label>
+                                <input type="number" name="TotalFloors" class="form-control" value="@Model.TotalFloors">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Banyo Sayısı</label>
+                                <input type="number" name="BathCount" class="form-control" value="@Model.BathCount">
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Isıtma Tipi</label>
+                                <input type="text" name="HeatingType" class="form-control" required value="@Model.HeatingType">
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="HasBalcony" value="true" @(Model.HasBalcony ? "checked" : "")>
+                                    <label class="form-check-label">Balkon</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="HasElevator" value="true" @(Model.HasElevator ? "checked" : "")>
+                                    <label class="form-check-label">Asansör</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-4 pt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="IsFurnished" value="true" @(Model.IsFurnished ? "checked" : "")>
+                                    <label class="form-check-label">Eşyalı</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold border-bottom w-100 pb-2"><i class="bi bi-images"></i> Yeni Fotoğraflar (Opsiyonel)</label>
+                            <input type="file" name="Images" class="form-control form-control-lg" multiple accept="image/*">
+                            <small class="text-muted">Yeni fotoğraf yüklerseniz, eski fotoğraflar değiştirilir. Boş bırakırsanız mevcut fotoğraflar korunur.</small>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning btn-lg flex-fill fw-bold">
+                                <i class="bi bi-check2-circle"></i> Değişiklikleri Kaydet
+                            </button>
+                            <a asp-controller="Property" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-x-circle"></i> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Şehir seçildiğinde ilçeleri getir
+            $("#CityId").change(function () {
+                var cityId = $(this).val();
+                $("#DistrictId").empty().append('<option value="">Seçiniz</option>');
+
+                if (cityId) {
+                    $.get("/Property/GetDistrictsByCity?cityId=" + cityId, function (districts) {
+                        districts.forEach(d => {
+                            $("#DistrictId").append(`<option value="${d.id}">${d.name}</option>`);
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+}

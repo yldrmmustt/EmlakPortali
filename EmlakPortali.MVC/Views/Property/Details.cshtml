@@ -1,0 +1,356 @@
+@{
+    ViewData["Title"] = "İlan Detayları - Emlak Portalı";
+}
+
+<!-- LOADING STATE -->
+<div id="loadingDiv" class="text-center py-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-3 text-muted">İlan yükleniyor...</p>
+</div>
+
+<!-- MAIN CONTENT (JS ile doldurulacak) -->
+<div id="propertyContent" style="display: none;">
+    <!-- Hero Image Section -->
+    <div class="mb-4">
+        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 600px; overflow: hidden; border-radius: 12px;">
+            <div class="carousel-inner" id="carouselImages">
+                <!-- Images buraya JS ile eklenecek -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row g-4">
+            <!-- LEFT COLUMN - Main Info -->
+            <div class="col-lg-8">
+                <!-- Header Info -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h2 id="propertyTitle" class="fw-bold mb-2"></h2>
+                                <p id="propertyAddress" class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt me-2"></i>
+                                </p>
+                            </div>
+                            <div class="text-end">
+                                <h3 id="propertyPrice" class="text-success fw-bold mb-2"></h3>
+                                <button class="btn btn-outline-success btn-sm" id="favBtn">
+                                    <i class="bi bi-heart me-1"></i>Favorilere Ekle
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Status Badge -->
+                        <div id="statusDiv"></div>
+                    </div>
+                </div>
+
+                <!-- Key Features -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-light border-0 text-center py-3">
+                            <i class="bi bi-door-open fs-4 text-success mb-2"></i>
+                            <p class="mb-1 fw-bold" id="roomCount">-</p>
+                            <small class="text-muted">Oda Sayısı</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light border-0 text-center py-3">
+                            <i class="bi bi-rulers fs-4 text-success mb-2"></i>
+                            <p class="mb-1 fw-bold" id="squareMeters">-</p>
+                            <small class="text-muted">Brüt m²</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light border-0 text-center py-3">
+                            <i class="bi bi-calendar-event fs-4 text-success mb-2"></i>
+                            <p class="mb-1 fw-bold" id="buildingAge">-</p>
+                            <small class="text-muted">Bina Yaşı</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light border-0 text-center py-3">
+                            <i class="bi bi-door-closed fs-4 text-success mb-2"></i>
+                            <p class="mb-1 fw-bold" id="floorNumber">-</p>
+                            <small class="text-muted">Kat</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-white border-bottom border-success border-opacity-25">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="bi bi-info-circle me-2 text-success"></i>Açıklama
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p id="propertyDescription" class="text-justify"></p>
+                    </div>
+                </div>
+
+                <!-- Detailed Features -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-white border-bottom border-success border-opacity-25">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="bi bi-list-check me-2 text-success"></i>Özellikler
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3" id="featuresDiv">
+                            <!-- Features buraya JS ile eklenecek -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN - Sidebar -->
+            <div class="col-lg-4">
+                <!-- Contact Card -->
+                <div class="card shadow-sm border-0 position-sticky" style="top: 20px;">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="bi bi-telephone me-2"></i>İletişim
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Listeleyen:</p>
+                            <p id="sellerName" class="fw-bold mb-2"></p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">E-posta:</p>
+                            <p>
+                                <a id="sellerEmail" href="#" class="text-success text-decoration-none fw-bold"></a>
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Telefon:</p>
+                            <p>
+                                <a id="sellerPhone" href="#" class="text-success text-decoration-none fw-bold"></a>
+                            </p>
+                        </div>
+
+                        <button class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="bi bi-chat-dots me-2"></i>İletişime Geç
+                        </button>
+                        <button class="btn btn-outline-success w-100">
+                            <i class="bi bi-share me-2"></i>Paylaş
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Property Details -->
+                <div class="card shadow-sm border-0 mt-3">
+                    <div class="card-header bg-white border-bottom border-success border-opacity-25">
+                        <h5 class="mb-0 fw-bold">Detaylı Bilgi</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <tr>
+                                <td class="text-muted">Kategori:</td>
+                                <td id="category" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Şehir:</td>
+                                <td id="city" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">İlçe:</td>
+                                <td id="district" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">İlan Tarihi:</td>
+                                <td id="listingDate" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Görüntülenme:</td>
+                                <td id="viewCount" class="fw-bold">0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-success border-opacity-25">
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-chat-dots me-2 text-success"></i>İletişime Geç
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Adınız</label>
+                        <input type="text" class="form-control" id="contactName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">E-posta</label>
+                        <input type="email" class="form-control" id="contactEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Telefon</label>
+                        <input type="tel" class="form-control" id="contactPhone">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mesaj</label>
+                        <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-success" id="sendMessageBtn">Gönder</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            const propertyId = @ViewBag.PropertyId;
+
+            function loadPropertyDetails() {
+                AjaxHelper.get(`/Properties/${propertyId}`, function(property) {
+                    displayPropertyDetails(property);
+                }, function(err) {
+                    $("#loadingDiv").html(`
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            İlan bulunamadı veya yüklenirken bir hata oluştu.
+                        </div>
+                    `);
+                }, false); // Token olmadan çalışmalı
+            }
+
+            function displayPropertyDetails(property) {
+                // Galerisi yükle
+                if (property.imageUrls && property.imageUrls.length > 0) {
+                    const carouselImages = $("#carouselImages");
+                    property.imageUrls.forEach((image, index) => {
+                        const imgUrl = AjaxHelper.API_BASE.replace('/api', '') + image;
+                        const activeClass = index === 0 ? 'active' : '';
+                        carouselImages.append(`
+                            <div class="carousel-item ${activeClass}">
+                                <img src="${imgUrl}" class="d-block w-100" style="height: 600px; object-fit: cover;">
+                            </div>
+                        `);
+                    });
+                }
+
+                // Temel bilgileri doldur
+                $("#propertyTitle").text(property.title);
+                $("#propertyAddress").html(`
+                    <i class="bi bi-geo-alt me-2"></i>
+                    ${property.cityName}/${property.districtName}
+                `);
+                $("#propertyPrice").text(`₺${property.price.toLocaleString('tr-TR')}`);
+                $("#propertyDescription").text(property.description || 'Açıklama bulunmamaktadır.');
+
+                // Key Features
+                $("#roomCount").text(`${property.roomCount || '-'}`);
+                $("#squareMeters").text(`${property.grossSquareMeters || '-'}`);
+                $("#buildingAge").text(`${property.buildingAge || '-'} yıl`);
+                $("#floorNumber").text(`${property.floorNumber || '-'}`);
+
+                // Durumu göster
+                const statusBadge = property.isActive
+                    ? '<span class="badge bg-success">Aktif</span>'
+                    : '<span class="badge bg-secondary">Pasif</span>';
+                $("#statusDiv").html(statusBadge);
+
+                // Detaylı bilgi
+                $("#category").text(property.categoryName || '-');
+                $("#city").text(property.cityName || '-');
+                $("#district").text(property.districtName || '-');
+                $("#listingDate").text(new Date(property.createdDate).toLocaleDateString('tr-TR'));
+
+                // Satıcı bilgileri
+                $("#sellerName").text(property.ownerName || 'Bilinmiyor');
+                $("#sellerEmail").text(property.ownerEmail || '-').attr('href', `mailto:${property.ownerEmail}`);
+                $("#sellerPhone").text(property.ownerPhone || '-').attr('href', `tel:${property.ownerPhone}`);
+
+                // Özellikleri göster
+                const features = [
+                    { icon: 'bi-door-open', label: 'Oda', value: property.roomCount },
+                    { icon: 'bi-rulers', label: 'Brüt m²', value: property.grossSquareMeters },
+                    { icon: 'bi-rulers', label: 'Net m²', value: property.netSquareMeters },
+                    { icon: 'bi-door-closed', label: 'Kat', value: property.floorNumber },
+                    { icon: 'bi-calendar-event', label: 'Bina Yaşı', value: property.buildingAge },
+                    { icon: 'bi-building', label: 'Isıtma', value: property.heatingType || 'Bilinmiyor' },
+                ];
+
+                const featuresHtml = features.map(f => `
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi ${f.icon} text-success me-2"></i>
+                            <div>
+                                <small class="text-muted">${f.label}</small>
+                                <p class="fw-bold mb-0">${f.value || '-'}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                $("#featuresDiv").html(featuresHtml);
+
+                // İçeriği göster
+                $("#propertyContent").show();
+                $("#loadingDiv").hide();
+            }
+
+            // İlk yükleme
+            loadPropertyDetails();
+
+            // Favoriye ekle
+            $("#favBtn").click(function() {
+                const isFav = $(this).hasClass('active');
+                $(this).toggleClass('active');
+
+                if (!isFav) {
+                    AjaxHelper.showAlert('success', 'İlan favorilere eklendi!');
+                } else {
+                    AjaxHelper.showAlert('info', 'İlan favorilerden kaldırıldı.');
+                }
+            });
+
+            // Mesaj gönder
+            $("#sendMessageBtn").click(function() {
+                const name = $("#contactName").val();
+                const email = $("#contactEmail").val();
+                const phone = $("#contactPhone").val();
+                const message = $("#contactMessage").val();
+
+                if (!name || !email || !message) {
+                    AjaxHelper.showAlert('warning', 'Lütfen gerekli alanları doldurunuz!');
+                    return;
+                }
+
+                // Mesajı gönder
+                const contactData = { propertyId, name, email, phone, message };
+                AjaxHelper.post('/messages', contactData, function() {
+                    AjaxHelper.showAlert('success', 'Mesajınız başarıyla gönderildi!');
+                    $("#contactForm")[0].reset();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+                    modal.hide();
+                }, function() {
+                    AjaxHelper.showAlert('danger', 'Mesaj gönderilemedi. Lütfen tekrar deneyin.');
+                });
+            });
+        });
+    </script>
+}

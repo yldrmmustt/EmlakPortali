@@ -1,0 +1,375 @@
+@{
+    ViewData["Title"] = "İlanlar - Emlak Portalı";
+}
+
+<!-- Advanced Search Section -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white border-bottom border-success border-opacity-25">
+        <h5 class="mb-0 fw-bold">
+            <i class="bi bi-search me-2 text-success"></i>Gelişmiş Arama
+        </h5>
+    </div>
+    <div class="card-body">
+        <form id="searchForm">
+            <div class="row g-3">
+                <!-- Arama Metni -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Arama</label>
+                    <input type="text" class="form-control" id="searchKeyword" placeholder="Başlık veya açıklama...">
+                </div>
+
+                <!-- Şehir -->
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">Şehir</label>
+                    <select class="form-select" id="cityFilter">
+                        <option value="">Tüm Şehirler</option>
+                    </select>
+                </div>
+
+                <!-- İlçe -->
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">İlçe</label>
+                    <select class="form-select" id="districtFilter" disabled>
+                        <option value="">Tüm İlçeler</option>
+                    </select>
+                </div>
+
+                <!-- Kategori -->
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">Kategori</label>
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">Tüm Kategoriler</option>
+                    </select>
+                </div>
+
+                <!-- Sıralama -->
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">Sıralama</label>
+                    <select class="form-select" id="sortFilter">
+                        <option value="">En Yeni</option>
+                        <option value="price-asc">Fiyat (Düşük-Yüksek)</option>
+                        <option value="price-desc">Fiyat (Yüksek-Düşük)</option>
+                    </select>
+                </div>
+
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="button" class="btn btn-success w-100" id="btnSearch">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advanced Filters (Collapsible) -->
+            <div class="mt-3">
+                <button class="btn btn-outline-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters">
+                    <i class="bi bi-funnel me-1"></i>Gelişmiş Filtreler
+                </button>
+            </div>
+
+            <div class="collapse mt-3" id="advancedFilters">
+                <div class="card card-body bg-light">
+                    <div class="row g-3">
+                        <!-- Fiyat Aralığı -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Min Fiyat (₺)</label>
+                            <input type="number" class="form-control" id="minPrice" placeholder="0">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Max Fiyat (₺)</label>
+                            <input type="number" class="form-control" id="maxPrice" placeholder="Sınırsız">
+                        </div>
+
+                        <!-- m² Aralığı -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Min m²</label>
+                            <input type="number" class="form-control" id="minArea" placeholder="0">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Max m²</label>
+                            <input type="number" class="form-control" id="maxArea" placeholder="Sınırsız">
+                        </div>
+
+                        <!-- Oda Sayısı -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Oda Sayısı</label>
+                            <input type="number" class="form-control" id="roomCount" placeholder="Hepsi">
+                        </div>
+
+                        <!-- Bina Yaşı -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Max Bina Yaşı (yıl)</label>
+                            <input type="number" class="form-control" id="maxAge" placeholder="Hepsi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="row align-items-center mb-3">
+    <div class="col">
+        <p class="text-muted mb-0">
+            <strong id="resultCount">0</strong> ilan bulundu
+        </p>
+    </div>
+</div>
+
+<!-- Loading -->
+<div id="loadingDiv" class="text-center py-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-3 text-muted">İlanlar yükleniyor...</p>
+</div>
+
+<!-- Property Grid -->
+<div class="row g-4" id="propertyGrid">
+    <!-- JS ile doldurulacak -->
+</div>
+
+<!-- Empty State -->
+<div class="col-12 text-center mt-5" id="emptyDiv" style="display: none;">
+    <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
+    <h5 class="text-muted">İlan bulunamadı</h5>
+    <p class="text-muted small">Lütfen filtreleri değiştirerek tekrar deneyin.</p>
+</div>
+
+<!-- Pagination -->
+<nav id="paginationDiv" style="display: none;">
+    <ul class="pagination justify-content-center mt-5" id="paginationList"></ul>
+</nav>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let allCitiesData = [];
+            let currentPage = 1;
+            const itemsPerPage = 12;
+
+            // İl ve İlçe verisini yükle
+            function loadCitiesData() {
+                $.getJSON("/data/cities-districts.json", function(data) {
+                    allCitiesData = data.cities;
+                    populateCities();
+                });
+            }
+
+            // Şehirleri dropdown'a ekle
+            function populateCities() {
+                const citySelect = $("#cityFilter");
+                allCitiesData.forEach(city => {
+                    citySelect.append(`<option value="${city.id}">${city.name}</option>`);
+                });
+            }
+
+            // İlçeleri dinamik olarak yükle
+            $("#cityFilter").change(function() {
+                const cityId = $(this).val();
+                const districtSelect = $("#districtFilter");
+                districtSelect.empty();
+
+                if (!cityId) {
+                    districtSelect.append('<option value="">Tüm İlçeler</option>');
+                    districtSelect.prop('disabled', true);
+                    return;
+                }
+
+                const city = allCitiesData.find(c => c.id == cityId);
+                if (city) {
+                    districtSelect.prop('disabled', false);
+                    districtSelect.append('<option value="">Tüm İlçeler</option>');
+                    city.districts.forEach(district => {
+                        districtSelect.append(`<option value="${district}">${district}</option>`);
+                    });
+                }
+            });
+
+            // Kategorileri yükle
+            function loadCategories() {
+                AjaxHelper.get("/categories", function(data) {
+                    const categorySelect = $("#categoryFilter");
+                    if (data && data.length > 0) {
+                        data.forEach(cat => {
+                            categorySelect.append(`<option value="${cat.id}">${cat.name}</option>`);
+                        });
+                    }
+                });
+            }
+
+            // İlanları yükle
+            function loadProperties(page = 1) {
+                currentPage = page;
+                $("#loadingDiv").show();
+                $("#emptyDiv").hide();
+                $("#propertyGrid").empty();
+                $("#paginationDiv").hide();
+
+                let params = [];
+                const keyword = $("#searchKeyword").val();
+                const cityId = $("#cityFilter").val();
+                const districtName = $("#districtFilter").val();
+                const categoryId = $("#categoryFilter").val();
+                const minPrice = $("#minPrice").val();
+                const maxPrice = $("#maxPrice").val();
+                const minArea = $("#minArea").val();
+                const maxArea = $("#maxArea").val();
+                const roomCount = $("#roomCount").val();
+                const maxAge = $("#maxAge").val();
+
+                if (keyword) params.push("keyword=" + encodeURIComponent(keyword));
+                if (cityId) params.push("cityId=" + cityId);
+                if (districtName) params.push("districtName=" + encodeURIComponent(districtName));
+                if (categoryId) params.push("categoryId=" + categoryId);
+                if (minPrice) params.push("minPrice=" + minPrice);
+                if (maxPrice) params.push("maxPrice=" + maxPrice);
+                if (minArea) params.push("minArea=" + minArea);
+                if (maxArea) params.push("maxArea=" + maxArea);
+                if (roomCount) params.push("roomCount=" + roomCount);
+                if (maxAge) params.push("maxAge=" + maxAge);
+
+                let endpoint = "/Properties";
+                if (params.length > 0) endpoint += "?" + params.join("&");
+
+                AjaxHelper.get(endpoint, function(data) {
+                    $("#loadingDiv").hide();
+
+                    if (data && data.length > 0) {
+                        $("#resultCount").text(data.length);
+
+                        // Pagination hesaplaması
+                        const totalPages = Math.ceil(data.length / itemsPerPage);
+                        const startIndex = (page - 1) * itemsPerPage;
+                        const endIndex = startIndex + itemsPerPage;
+                        const paginatedData = data.slice(startIndex, endIndex);
+
+                        // Kartları göster
+                        $.each(paginatedData, function(index, property) {
+                            let imageUrl = property.imageUrls && property.imageUrls.length > 0
+                                ? AjaxHelper.API_BASE.replace('/api', '') + property.imageUrls[0]
+                                : "https://via.placeholder.com/400x250?text=Görsel%20Yok";
+
+                            let statusBadge = property.isActive
+                                ? '<span class="badge bg-success">Aktif</span>'
+                                : '<span class="badge bg-secondary">Pasif</span>';
+
+                            let cardHtml = `
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="property-card h-100">
+                                        <div class="position-relative">
+                                            <img src="${imageUrl}" class="property-image" alt="${property.title}">
+                                            <div class="position-absolute top-0 end-0 m-3">
+                                                ${statusBadge}
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <div class="property-price mb-2">₺${property.price.toLocaleString('tr-TR')}</div>
+                                            <h5 class="property-title mb-2" title="${property.title}">${property.title}</h5>
+                                            <p class="property-meta mb-3">
+                                                <i class="bi bi-geo-alt me-1"></i>
+                                                ${property.cityName}/${property.districtName}
+                                            </p>
+
+                                            <div class="row text-center border-top pt-3 g-2">
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-door-open fs-6"></i>
+                                                    </small>
+                                                    <small>${property.roomCount || '-'}</small>
+                                                </div>
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-rulers fs-6"></i>
+                                                    </small>
+                                                    <small>${property.grossSquareMeters || '-'} m²</small>
+                                                </div>
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-calendar fs-6"></i>
+                                                    </small>
+                                                    <small>${property.buildingAge || '-'}</small>
+                                                </div>
+                                            </div>
+
+                                            <a href="/Property/Details/${property.id}" class="btn btn-success w-100 mt-3 fw-bold">
+                                                <i class="bi bi-eye me-1"></i>Detayı Gör
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            $("#propertyGrid").append(cardHtml);
+                        });
+
+                        // Pagination oluştur
+                        if (totalPages > 1) {
+                            const paginationList = $("#paginationList");
+                            paginationList.empty();
+
+                            // Previous
+                            if (page > 1) {
+                                paginationList.append(`
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" onclick="loadProperties(${page - 1}); return false;">
+                                            <i class="bi bi-chevron-left"></i> Önceki
+                                        </a>
+                                    </li>
+                                `);
+                            }
+
+                            // Pages
+                            for (let i = 1; i <= totalPages; i++) {
+                                const activeClass = i === page ? 'active' : '';
+                                paginationList.append(`
+                                    <li class="page-item ${activeClass}">
+                                        <a class="page-link" href="#" onclick="loadProperties(${i}); return false;">
+                                            ${i}
+                                        </a>
+                                    </li>
+                                `);
+                            }
+
+                            // Next
+                            if (page < totalPages) {
+                                paginationList.append(`
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" onclick="loadProperties(${page + 1}); return false;">
+                                            Sonraki <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                `);
+                            }
+
+                            $("#paginationDiv").show();
+                        }
+                    } else {
+                        $("#resultCount").text("0");
+                        $("#emptyDiv").show();
+                    }
+                }, function(err) {
+                    $("#loadingDiv").hide();
+                    AjaxHelper.showAlert("danger", "İlanlar yüklenirken bir hata oluştu!");
+                });
+            }
+
+            // İlk yükleme
+            loadCitiesData();
+            loadCategories();
+            loadProperties();
+
+            // Arama ve filtreleme
+            $("#btnSearch").click(function() {
+                loadProperties(1);
+            });
+
+            // Enter tuşu
+            $(document).on('keypress', '#searchKeyword, #minPrice, #maxPrice, #minArea, #maxArea', function(e) {
+                if (e.keyCode === 13) {
+                    $("#btnSearch").click();
+                }
+            });
+
+            // Global loadProperties fonksiyonu (pagination için)
+            window.loadProperties = loadProperties;
+        });
+    </script>
+}

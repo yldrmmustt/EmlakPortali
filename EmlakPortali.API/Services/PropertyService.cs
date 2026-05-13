@@ -86,5 +86,43 @@ namespace EmlakPortali.API.Services
             
             return true;
         }
+
+        public async Task<bool> UpdatePropertyAsync(int id, CreatePropertyDto dto, string userId)
+        {
+            var property = await _propertyRepository.GetByIdAsync(id);
+            if (property == null) return false;
+            if (property.AppUserId != userId) return false;
+
+            property.Title = dto.Title;
+            property.Description = dto.Description;
+            property.Price = dto.Price;
+            property.GrossSquareMeters = dto.GrossSquareMeters;
+            property.NetSquareMeters = dto.NetSquareMeters;
+            property.RoomCount = dto.RoomCount;
+            property.BuildingAge = dto.BuildingAge;
+            property.HeatingType = dto.HeatingType;
+            property.HasBalcony = dto.HasBalcony;
+            property.HasElevator = dto.HasElevator;
+            property.IsFurnished = dto.IsFurnished;
+            property.Status = dto.Status;
+            property.CategoryId = dto.CategoryId;
+            property.CityId = dto.CityId;
+            property.DistrictId = dto.DistrictId;
+
+            _propertyRepository.Update(property);
+            await _propertyRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeletePropertyAsync(int id, string userId, bool isAdmin)
+        {
+            var property = await _propertyRepository.GetByIdAsync(id);
+            if (property == null) return false;
+            if (!isAdmin && property.AppUserId != userId) return false;
+
+            _propertyRepository.Remove(property);
+            await _propertyRepository.SaveChangesAsync();
+            return true;
+        }
     }
 }

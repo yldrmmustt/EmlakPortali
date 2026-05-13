@@ -7,6 +7,8 @@ namespace EmlakPortali.API.Services
         Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(int? cityId = null, int? categoryId = null, string? status = null);
         Task<PropertyDto?> GetPropertyByIdAsync(int id);
         Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto dto, string userId);
+        Task<bool> UpdatePropertyAsync(int id, CreatePropertyDto dto, string userId);
+        Task<bool> DeletePropertyAsync(int id, string userId, bool isAdmin);
         Task<bool> TogglePropertyStatusAsync(int id);
     }
 }

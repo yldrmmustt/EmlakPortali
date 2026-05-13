@@ -40,8 +40,10 @@ namespace EmlakPortali.API.Services
                 }
 
                 var token = GetToken(authClaims);
+                var role = userRoles.Contains("Admin") ? "Admin" : "User";
 
-                return (true, new JwtSecurityTokenHandler().WriteToken(token), token.ValidTo, new { user.FirstName, user.LastName, user.Email });
+                return (true, new JwtSecurityTokenHandler().WriteToken(token), token.ValidTo,
+                    new { user.FirstName, user.LastName, user.Email, Role = role });
             }
             return (false, string.Empty, DateTime.MinValue, null!);
         }

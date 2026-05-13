@@ -1,0 +1,164 @@
+@model EmlakPortali.MVC.Models.UserProfileViewModel
+@{
+    ViewData["Title"] = "Profilim";
+    var myProperties = ViewBag.MyProperties as List<EmlakPortali.MVC.Models.PropertyViewModel> ?? new List<EmlakPortali.MVC.Models.PropertyViewModel>();
+    var apiBaseUrl = ViewBag.ApiBaseUrl as string ?? "https://localhost:7185";
+    var activeCount = myProperties.Count(p => p.IsActive);
+    var passiveCount = myProperties.Count(p => !p.IsActive);
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sol: Profil Bilgileri -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0">
+                <div class="card-body text-center p-5">
+                    <!-- Avatar -->
+                    <div class="mb-4">
+                        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                        {
+                            <img src="@(apiBaseUrl + Model.ProfilePictureUrl)" class="rounded-circle border border-3 border-primary" style="width: 120px; height: 120px; object-fit: cover;" alt="Profil Fotoğrafı">
+                        }
+                        else
+                        {
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 120px; height: 120px; font-size: 3rem;">
+                                @(Model.FirstName?.Length > 0 ? Model.FirstName[0].ToString().ToUpper() : "?")@(Model.LastName?.Length > 0 ? Model.LastName[0].ToString().ToUpper() : "")
+                            </div>
+                        }
+                    </div>
+
+                    <h3 class="fw-bold mb-1">@Model.FirstName @Model.LastName</h3>
+                    <span class="badge @(Model.Role == "Admin" ? "bg-danger" : "bg-primary") mb-3 px-3 py-2">
+                        <i class="bi @(Model.Role == "Admin" ? "bi-shield-lock" : "bi-person")"></i> @Model.Role
+                    </span>
+
+                    <hr />
+
+                    <div class="text-start">
+                        <div class="mb-3">
+                            <small class="text-muted d-block"><i class="bi bi-envelope"></i> E-posta</small>
+                            <strong>@Model.Email</strong>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted d-block"><i class="bi bi-calendar3"></i> Üyelik Tarihi</small>
+                            <strong>@Model.RegisterDate.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İstatistikler -->
+            <div class="card shadow-sm border-0 mt-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-bar-chart text-primary"></i> İlan İstatistikleri</h6>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="fs-3 fw-bold text-primary">@myProperties.Count</div>
+                            <small class="text-muted">Toplam</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="fs-3 fw-bold text-success">@activeCount</div>
+                            <small class="text-muted">Aktif</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="fs-3 fw-bold text-secondary">@passiveCount</div>
+                            <small class="text-muted">Pasif</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hızlı Aksiyonlar -->
+            <div class="card shadow-sm border-0 mt-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-lightning text-warning"></i> Hızlı İşlemler</h6>
+                    <a asp-controller="Account" asp-action="EditProfile" class="btn btn-outline-primary w-100 mb-2 fw-bold">
+                        <i class="bi bi-person-lines-fill"></i> Profili Düzenle
+                    </a>
+                    <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-outline-danger w-100 mb-2 fw-bold">
+                        <i class="bi bi-shield-lock"></i> Şifre Değiştir
+                    </a>
+                    <a asp-controller="Property" asp-action="Create" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-plus-circle"></i> Yeni İlan Ver
+                    </a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-house"></i> Ana Sayfaya Dön
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ: İlanlarım -->
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold"><i class="bi bi-houses text-primary"></i> İlanlarım</h4>
+                <span class="badge bg-primary fs-6 px-3 py-2">@myProperties.Count İlan</span>
+            </div>
+
+            @if (myProperties.Count > 0)
+            {
+                <div class="row">
+                    @foreach (var property in myProperties)
+                    {
+                        var imageUrl = property.ImageUrls != null && property.ImageUrls.Count > 0
+                            ? apiBaseUrl + property.ImageUrls[0]
+                            : "https://via.placeholder.com/400x200?text=G%C3%B6rsel+Yok";
+                        var statusBadge = property.IsActive ? "bg-success" : "bg-secondary";
+                        var statusText = property.IsActive ? "Aktif" : "Pasif";
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0 @(!property.IsActive ? "opacity-75" : "")">
+                                <div class="position-relative">
+                                    <img src="@imageUrl" class="card-img-top" alt="@property.Title" style="height: 180px; object-fit: cover;">
+                                    <span class="position-absolute top-0 start-0 badge @statusBadge m-2">@statusText</span>
+                                    <span class="position-absolute top-0 end-0 badge bg-danger m-2">@property.Status</span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="text-primary fw-bold mb-1">₺@property.Price.ToString("N0")</h5>
+                                    <h6 class="card-title text-truncate fw-semibold" title="@property.Title">@property.Title</h6>
+                                    <p class="card-text text-muted small mb-2">
+                                        <i class="bi bi-geo-alt-fill text-danger"></i> @property.CityName / @property.DistrictName
+                                    </p>
+                                    <div class="d-flex text-muted small mb-3">
+                                        <span class="me-3"><i class="bi bi-door-open"></i> @property.RoomCount</span>
+                                        <span class="me-3"><i class="bi bi-aspect-ratio"></i> @property.GrossSquareMeters m²</span>
+                                        <span><i class="bi bi-calendar3"></i> @property.CreatedDate.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-0 p-3 pt-0">
+                                    <div class="d-flex gap-2">
+                                        <a asp-controller="Property" asp-action="Details" asp-route-id="@property.Id" class="btn btn-sm btn-outline-primary flex-fill">
+                                            <i class="bi bi-eye"></i> Görüntüle
+                                        </a>
+                                        <a asp-controller="Property" asp-action="Edit" asp-route-id="@property.Id" class="btn btn-sm btn-outline-warning flex-fill">
+                                            <i class="bi bi-pencil"></i> Düzenle
+                                        </a>
+                                        <form method="post" asp-controller="Property" asp-action="Delete" asp-route-id="@property.Id" class="d-inline"
+                                              onsubmit="return confirm('Bu ilanı silmek istediğinize emin misiniz?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-house-x text-muted" style="font-size: 4rem;"></i>
+                        <h5 class="text-muted mt-3">Henüz hiç ilanınız yok</h5>
+                        <p class="text-muted">İlk ilanınızı vererek başlayın!</p>
+                        <a asp-controller="Property" asp-action="Create" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle"></i> İlan Ver
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

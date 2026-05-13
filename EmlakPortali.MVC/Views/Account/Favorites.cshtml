@@ -1,0 +1,73 @@
+@model List<EmlakPortali.MVC.Models.FavoriteViewModel>
+@{
+    ViewData["Title"] = "Favorilerim";
+    var apiBaseUrl = "http://localhost:5095";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold"><i class="bi bi-bookmark-heart text-success me-2"></i>Favorilerim</h3>
+        <span class="badge bg-success fs-6 px-3 py-2">@(Model?.Count ?? 0) Favori</span>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            @foreach (var fav in Model)
+            {
+                var imageUrl = !string.IsNullOrEmpty(fav.Property?.ImageUrl)
+                    ? apiBaseUrl + fav.Property.ImageUrl
+                    : "https://via.placeholder.com/400x200?text=Görsel+Yok";
+
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="position-relative">
+                            <img src="@imageUrl" class="card-img-top" alt="@fav.Property?.Title" style="height:180px;object-fit:cover;">
+                            <form method="post" action="/Account/RemoveFavorite/@fav.PropertyId" class="position-absolute top-0 end-0 m-2">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-danger" title="Favorilerden Çıkar">
+                                    <i class="bi bi-bookmark-x-fill"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="text-success fw-bold mb-1">₺@fav.Property?.Price.ToString("N0")</h5>
+                            <h6 class="card-title text-truncate fw-semibold" title="@fav.Property?.Title">@fav.Property?.Title</h6>
+                            <p class="card-text text-muted small mb-2">
+                                <i class="bi bi-geo-alt-fill text-danger"></i>
+                                @fav.Property?.CityName / @fav.Property?.DistrictName
+                            </p>
+                            <div class="d-flex text-muted small">
+                                <span class="me-3"><i class="bi bi-door-open"></i> @fav.Property?.RoomCount</span>
+                                <span><i class="bi bi-aspect-ratio"></i> @fav.Property?.GrossSquareMeters m²</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 p-3 pt-0">
+                            <a href="/Property/Details/@fav.PropertyId" class="btn btn-outline-success w-100">
+                                <i class="bi bi-eye me-1"></i> İlanı Görüntüle
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-bookmark-x text-muted" style="font-size:4rem;"></i>
+                <h5 class="text-muted mt-3">Henüz favori ilanınız yok</h5>
+                <p class="text-muted">Beğendiğiniz ilanları favorilere ekleyin!</p>
+                <a href="/Property" class="btn btn-success btn-lg">
+                    <i class="bi bi-search me-1"></i> İlanlara Göz At
+                </a>
+            </div>
+        </div>
+    }
+</div>

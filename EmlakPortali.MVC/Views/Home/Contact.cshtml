@@ -1,0 +1,152 @@
+@{
+    ViewData["Title"] = "İletişim - Emlak Portalı";
+}
+
+<!-- Hero Section -->
+<div class="hero-section mb-5">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">İletişime Geçin</h1>
+        <p class="lead mb-0">Sorularınız ve önerileriniz için bize ulaşın</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <!-- Contact Form -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom border-success border-opacity-25">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-chat-dots me-2 text-success"></i>Mesaj Gönder
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="contactAlert" class="alert d-none" role="alert"></div>
+
+                    <form id="contactForm">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Ad Soyad</label>
+                                <input type="text" class="form-control" id="contactName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">E-posta</label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Telefon</label>
+                            <input type="tel" class="form-control" id="contactPhone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Konu</label>
+                            <select class="form-select" id="contactSubject" required>
+                                <option value="">Konu Seçin</option>
+                                <option value="general">Genel Soru</option>
+                                <option value="report">Şikayet/Rapor</option>
+                                <option value="suggestion">Öneri</option>
+                                <option value="bug">Teknik Sorun</option>
+                                <option value="other">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mesaj</label>
+                            <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 fw-bold py-2">
+                            <i class="bi bi-send me-2"></i>Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-telephone me-2"></i>Telefon
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        <a href="tel:+90212123456" class="text-success text-decoration-none fw-bold">
+                            +90 (212) 123-4567
+                        </a>
+                    </p>
+                    <small class="text-muted">Hafta içi 09:00 - 18:00</small>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-envelope me-2"></i>E-posta
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        <a href="mailto:info@emlakportali.com" class="text-success text-decoration-none fw-bold">
+                            info@emlakportali.com
+                        </a>
+                    </p>
+                    <small class="text-muted">24 saat içinde cevap veririz</small>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-geo-alt me-2"></i>Adres
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0 fw-bold">Emlak Portalı</p>
+                    <small class="text-muted">
+                        Maslak Mahallesi<br>
+                        İstanbul, Türkiye<br>
+                        <br>
+                        <a href="#" class="text-success text-decoration-none small">
+                            Haritada Gör
+                        </a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#contactForm").submit(function(e) {
+                e.preventDefault();
+
+                const name = $("#contactName").val();
+                const email = $("#contactEmail").val();
+                const phone = $("#contactPhone").val();
+                const subject = $("#contactSubject").val();
+                const message = $("#contactMessage").val();
+
+                if (!name || !email || !subject || !message) {
+                    AjaxHelper.showAlert('warning', 'Lütfen zorunlu alanları doldurunuz!', 'contactAlert');
+                    return;
+                }
+
+                const contactData = { name, email, phone, subject, message };
+
+                AjaxHelper.post('/messages/contact', contactData, function() {
+                    AjaxHelper.showAlert('success', 'Mesajınız başarıyla gönderildi! Kısa sürede size cevap vereceğiz.', 'contactAlert');
+                    $("#contactForm")[0].reset();
+                }, function() {
+                    AjaxHelper.showAlert('danger', 'Mesaj gönderilemedi. Lütfen tekrar deneyin.', 'contactAlert');
+                }, false);
+            });
+        });
+    </script>
+}

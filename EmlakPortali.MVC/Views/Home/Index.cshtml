@@ -1,126 +1,246 @@
 @{
-    ViewData["Title"] = "Ana Sayfa - Emlak Portalı";
+    ViewData["Title"] = "Emlak Portalı - Hayalinizdeki Evi Bulun";
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-12 text-center text-white bg-primary p-5 rounded shadow">
-            <h1 class="display-4 fw-bold">Emlak Portalı'na Hoş Geldiniz</h1>
-            <p class="lead">Hayalinizdeki Evi Hemen Bulun!</p>
-        </div>
+<!-- HERO SECTION -->
+<div class="hero-section mb-5">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">
+            <i class="bi bi-building me-3"></i>Hayalinizdeki Evi Bulun
+        </h1>
+        <p class="lead mb-0">
+            Türkiye'nin en güvenilir emlak portalında binlerce gayrimenkul ilanı arasından seçim yapın.
+        </p>
     </div>
+</div>
 
-    <!-- Filtreleme Alanı -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-body row g-3">
-                    <div class="col-md-4">
-                        <select class="form-select" id="cityFilter">
-                            <option value="">Tüm Şehirler</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select" id="categoryFilter">
-                            <option value="">Tüm Kategoriler</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-dark w-100" id="btnSearch">Ara</button>
-                    </div>
+<!-- ARAMA FİLTRELERİ -->
+<div class="container mb-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="row g-3">
+                <!-- Şehir Seçimi -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Şehir</label>
+                    <select class="form-select" id="cityFilter">
+                        <option value="">Tüm Şehirler</option>
+                    </select>
+                </div>
+
+                <!-- İlçe Seçimi -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">İlçe</label>
+                    <select class="form-select" id="districtFilter" disabled>
+                        <option value="">Önce Şehir Seçin</option>
+                    </select>
+                </div>
+
+                <!-- Kategori Seçimi -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Kategori</label>
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">Tüm Kategoriler</option>
+                    </select>
+                </div>
+
+                <!-- Arama Butonu -->
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-success w-100 fw-bold" id="btnSearch">
+                        <i class="bi bi-search me-2"></i>Ara
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- İlan Listesi -->
+<!-- İLAN LİSTESİ -->
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="fw-bold mb-4">
+                <i class="bi bi-list-columns-reverse text-success me-2"></i>
+                İlanlar
+            </h3>
+        </div>
+    </div>
+
     <div class="row" id="propertyList">
         <!-- JS ile doldurulacak -->
         <div class="col-12 text-center" id="loadingDiv">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 text-muted">İlanlar yükleniyor...</p>
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-3 text-muted">İlanlar yükleniyor...</p>
         </div>
+    </div>
+
+    <!-- Boş Sonuç Mesajı -->
+    <div class="col-12 text-center mt-5" id="emptyDiv" style="display: none;">
+        <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
+        <h5 class="text-muted">Arama kriterlerinize uygun ilan bulunamadı.</h5>
+        <p class="text-muted small">Lütfen filtreleri değiştirerek tekrar deneyin.</p>
     </div>
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            const API_BASE = "https://localhost:7185/api";
-            
-            // Filtre dropdownlarını doldur
-            $.get(API_BASE + "/Cities", function (cities) {
-                cities.forEach(c => $("#cityFilter").append(`<option value="${c.id}">${c.name}</option>`));
+            let allCitiesData = [];
+
+            // İl ve İlçe verisini JSON'dan yükle
+            function loadCitiesData() {
+                $.getJSON("/data/cities-districts.json", function(data) {
+                    allCitiesData = data.cities;
+                    populateCities();
+                });
+            }
+
+            // Şehirleri dropdown'a ekle
+            function populateCities() {
+                const citySelect = $("#cityFilter");
+                allCitiesData.forEach(city => {
+                    citySelect.append(`<option value="${city.id}">${city.name}</option>`);
+                });
+            }
+
+            // İlçeleri dinamik olarak yükle
+            $("#cityFilter").change(function() {
+                const cityId = $(this).val();
+                const districtSelect = $("#districtFilter");
+                districtSelect.empty();
+
+                if (!cityId) {
+                    districtSelect.append('<option value="">Önce Şehir Seçin</option>');
+                    districtSelect.prop('disabled', true);
+                    return;
+                }
+
+                const city = allCitiesData.find(c => c.id == cityId);
+                if (city) {
+                    districtSelect.prop('disabled', false);
+                    districtSelect.append('<option value="">Tüm İlçeler</option>');
+                    city.districts.forEach(district => {
+                        districtSelect.append(`<option value="${district}">${district}</option>`);
+                    });
+                }
             });
-            $.get(API_BASE + "/Categories", function (cats) {
-                cats.forEach(c => $("#categoryFilter").append(`<option value="${c.id}">${c.name}</option>`));
-            });
 
-            function loadProperties(cityId, categoryId) {
-                $("#loadingDiv").show();
-                $("#propertyList .property-card-col").remove();
-
-                let url = API_BASE + "/Properties";
-                let params = [];
-                if(cityId) params.push("cityId=" + cityId);
-                if(categoryId) params.push("categoryId=" + categoryId);
-                if(params.length > 0) url += "?" + params.join("&");
-
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    success: function (data) {
-                        $("#loadingDiv").hide();
-                        
-                        if (data && data.length > 0) {
-                            $.each(data, function (index, property) {
-                                let imageUrl = property.imageUrls && property.imageUrls.length > 0 
-                                    ? "https://localhost:7185" + property.imageUrls[0] 
-                                    : "https://via.placeholder.com/400x250?text=G%C3%B6rsel+Yok";
-
-                                let cardHtml = `
-                                    <div class="col-md-4 mb-4 property-card-col">
-                                        <div class="card h-100 shadow border-0" style="transition: transform 0.2s;">
-                                            <img src="${imageUrl}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
-                                            <div class="card-body position-relative">
-                                                <span class="position-absolute top-0 end-0 badge bg-danger m-3 fs-6">${property.status}</span>
-                                                <h4 class="text-primary fw-bold mt-2">₺${property.price.toLocaleString('tr-TR')}</h4>
-                                                <h6 class="card-title text-truncate fw-bold" title="${property.title}">${property.title}</h6>
-                                                <p class="card-text text-muted small mb-3">
-                                                    <i class="bi bi-geo-alt-fill text-danger"></i> ${property.cityName} / ${property.districtName} <br />
-                                                    <i class="bi bi-tags-fill text-success"></i> ${property.categoryName}
-                                                </p>
-                                                <div class="row text-muted small border-top pt-3 text-center w-100 mx-0">
-                                                    <div class="col-4 border-end px-0"><i class="bi bi-door-open fs-5 d-block"></i> ${property.roomCount} Oda</div>
-                                                    <div class="col-4 border-end px-0"><i class="bi bi-aspect-ratio fs-5 d-block"></i> ${property.grossSquareMeters} m²</div>
-                                                    <div class="col-4 px-0"><i class="bi bi-building fs-5 d-block"></i> ${property.buildingAge} Yaşında</div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer bg-transparent border-0 pb-3 p-3">
-                                                <a href="/Property/Details/${property.id}" class="btn btn-outline-primary w-100 fw-bold">İlan Detayı</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                                $("#propertyList").append(cardHtml);
-                            });
-                        } else {
-                            $("#propertyList").append('<div class="col-12 text-center text-muted property-card-col my-5"><h5>Arama kriterlerinize uygun ilan bulunamadı.</h5></div>');
-                        }
-                    },
-                    error: function (err) {
-                        $("#loadingDiv").hide();
-                        $("#propertyList").append('<div class="col-12 text-center text-danger property-card-col my-5"><h5>Bağlantı hatası: Backend API ayakta değil!</h5></div>');
+            // Kategorileri yükle
+            function loadCategories() {
+                AjaxHelper.get("/categories", function(data) {
+                    const categorySelect = $("#categoryFilter");
+                    if (data && data.length > 0) {
+                        data.forEach(cat => {
+                            categorySelect.append(`<option value="${cat.id}">${cat.name}</option>`);
+                        });
                     }
                 });
             }
 
-            // Başlangıçta tüm ilanları yükle
+            // İlanları yükle
+            function loadProperties(cityId, districtName, categoryId) {
+                $("#loadingDiv").show();
+                $("#emptyDiv").hide();
+                $("#propertyList").empty();
+
+                let params = [];
+                if (cityId) params.push("cityId=" + cityId);
+                if (districtName) params.push("districtName=" + encodeURIComponent(districtName));
+                if (categoryId) params.push("categoryId=" + categoryId);
+
+                let endpoint = "/Properties";
+                if (params.length > 0) endpoint += "?" + params.join("&");
+
+                AjaxHelper.get(endpoint, function(data) {
+                    $("#loadingDiv").hide();
+
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, property) {
+                            let imageUrl = property.imageUrls && property.imageUrls.length > 0
+                                ? AjaxHelper.API_BASE.replace('/api', '') + property.imageUrls[0]
+                                : "https://via.placeholder.com/400x250?text=Görsel%20Yok";
+
+                            let statusBadge = property.isActive
+                                ? '<span class="badge bg-success">Aktif</span>'
+                                : '<span class="badge bg-secondary">Pasif</span>';
+
+                            let cardHtml = `
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="property-card h-100">
+                                        <div class="position-relative">
+                                            <img src="${imageUrl}" class="property-image" alt="${property.title}">
+                                            <div class="position-absolute top-0 end-0 m-3">
+                                                ${statusBadge}
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <div class="property-price mb-2">₺${property.price.toLocaleString('tr-TR')}</div>
+                                            <h5 class="property-title mb-2" title="${property.title}">${property.title}</h5>
+                                            <p class="property-meta mb-3">
+                                                <i class="bi bi-geo-alt me-1"></i>
+                                                ${property.cityName}/${property.districtName}
+                                            </p>
+
+                                            <!-- Property Details -->
+                                            <div class="row text-center border-top pt-3 g-2">
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-door-open fs-6"></i>
+                                                    </small>
+                                                    <small>${property.roomCount || '-'} Oda</small>
+                                                </div>
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-rulers fs-6"></i>
+                                                    </small>
+                                                    <small>${property.grossSquareMeters || '-'} m²</small>
+                                                </div>
+                                                <div class="col-4">
+                                                    <small class="text-muted d-block">
+                                                        <i class="bi bi-calendar fs-6"></i>
+                                                    </small>
+                                                    <small>${property.buildingAge || '-'} Yaş</small>
+                                                </div>
+                                            </div>
+
+                                            <!-- Action Button -->
+                                            <a href="/Property/Details/${property.id}" class="btn btn-success w-100 mt-3 fw-bold">
+                                                <i class="bi bi-eye me-1"></i>Detayı Gör
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            $("#propertyList").append(cardHtml);
+                        });
+                    } else {
+                        $("#emptyDiv").show();
+                    }
+                }, function(xhr, status, error) {
+                    $("#loadingDiv").hide();
+                    AjaxHelper.showAlert("danger", "İlanlar yüklenirken bir hata oluştu!");
+                });
+            }
+
+            // İlk yükleme
+            loadCitiesData();
+            loadCategories();
             loadProperties();
 
-            $("#btnSearch").click(function(){
-                loadProperties($("#cityFilter").val(), $("#categoryFilter").val());
+            // Arama butonu
+            $("#btnSearch").click(function() {
+                const cityId = $("#cityFilter").val();
+                const districtName = $("#districtFilter").val();
+                const categoryId = $("#categoryFilter").val();
+                loadProperties(cityId, districtName, categoryId);
+            });
+
+            // Enter tuşu
+            $(document).on('keypress', '.form-select', function(e) {
+                if (e.keyCode === 13) {
+                    $("#btnSearch").click();
+                }
             });
         });
     </script>
 }
+

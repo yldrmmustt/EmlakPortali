@@ -18,6 +18,27 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult About()
+    {
+        return View();
+    }
+
+    public IActionResult Contact()
+    {
+        return View();
+    }
+
+    public IActionResult Faq()
+    {
+        return View();
+    }
+
+    public new IActionResult NotFound()
+    {
+        Response.StatusCode = 404;
+        return View();
+    }
+
     public IActionResult Privacy()
     {
         return View();

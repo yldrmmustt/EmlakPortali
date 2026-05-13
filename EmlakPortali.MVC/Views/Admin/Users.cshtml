@@ -1,0 +1,79 @@
+@model List<EmlakPortali.MVC.Models.AdminUserViewModel>
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-people-fill me-2 text-success"></i>Kullanıcı Yönetimi</h4>
+    <span class="badge bg-success fs-6 px-3">@(Model?.Count ?? 0) Kullanıcı</span>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Ad Soyad</th>
+                        <th>E-posta</th>
+                        <th>Rol</th>
+                        <th>Kayıt Tarihi</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success fw-bold"
+                                             style="width:38px;height:38px;flex-shrink:0;font-size:0.95rem;">
+                                            @(user.FirstName?.Length > 0 ? user.FirstName[0].ToString().ToUpper() : "?")
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">@user.FirstName @user.LastName</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-muted small">@user.Email</td>
+                                <td>
+                                    @if (user.Role == "Admin")
+                                    {
+                                        <span class="badge badge-admin"><i class="bi bi-shield-fill me-1"></i>Admin</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-user"><i class="bi bi-person me-1"></i>Kullanıcı</span>
+                                    }
+                                </td>
+                                <td class="text-muted small">@user.RegisterDate.ToString("dd.MM.yyyy")</td>
+                                <td class="text-end">
+                                    <form method="post" action="/Admin/ToggleAdmin/@user.Id" class="d-inline"
+                                          onsubmit="return confirm('@(user.Role == "Admin" ? "Admin rolünü kaldırmak" : "Admin yapmak") istediğinize emin misiniz?')">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm @(user.Role == "Admin" ? "btn-outline-warning" : "btn-outline-success") action-btn">
+                                            <i class="bi @(user.Role == "Admin" ? "bi-shield-minus" : "bi-shield-plus") me-1"></i>
+                                            @(user.Role == "Admin" ? "Admin Kaldır" : "Admin Yap")
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-5">
+                                <i class="bi bi-people fs-1 d-block mb-2"></i>Kullanıcı bulunamadı.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

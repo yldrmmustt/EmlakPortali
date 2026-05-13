@@ -1,0 +1,169 @@
+@{
+    ViewData["Title"] = "Sık Sorulanlar - Emlak Portalı";
+}
+
+<!-- Hero Section -->
+<div class="hero-section mb-5">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">Sık Sorulanlar (FAQ)</h1>
+        <p class="lead mb-0">Sorularınıza hızlı cevaplar bulun</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <!-- FAQ Accordion -->
+            <div class="accordion" id="faqAccordion">
+                <!-- General Section -->
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            <i class="bi bi-building me-2 text-success"></i>Emlak Portalı nedir?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Emlak Portalı, Türkiye'nin en güvenilir online gayrimenkul platformudur.
+                            Ev, daire, villa, arsa ve diğer gayrimenkullerin satışı, kiralamas ve alımı için hizmet sunuyoruz.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            <i class="bi bi-person me-2 text-success"></i>Ücretsiz mi kullanmak?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Evet! Emlak Portalı'nda kayıt olmak ve ilanları görüntülemek tamamen ücretsizdir.
+                            İlan yayınlama ve premium özellikler için ücretli paketlerimiz bulunmaktadır.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            <i class="bi bi-shield-check me-2 text-success"></i>Verilerim güvenli mi?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Kesinlikle! Tüm verileriniz 256-bit SSL şifrelemesi ile korunur.
+                            Kişisel bilgileriniz asla üçüncü taraflara paylaşılmaz.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing Section -->
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            <i class="bi bi-plus-circle me-2 text-success"></i>Nasıl ilan yayınlanır?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            1. Hesap oluşturun veya giriş yapın<br>
+                            2. "İlan Ver" butonu tıklayın<br>
+                            3. Gayrimenkul bilgilerini doldurun<br>
+                            4. Fotoğraflar yükleyin<br>
+                            5. Yayınlayın!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            <i class="bi bi-clock me-2 text-success"></i>İlan ne kadar süre görüntülenir?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Standart ilanlar 60 gün görüntülenir. Premium paketlere yükseltirseniz süreyi uzatabilirsiniz.
+                            İlan satıldı/kiralandı olarak işaretlenebilir.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Section -->
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                            <i class="bi bi-search me-2 text-success"></i>İlan nasıl aranır?
+                        </button>
+                    </h2>
+                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Anasayfadaki arama formunu kullanabilirsiniz. Şehir, ilçe, kategori, fiyat aralığı ve daha pek çok filtreyle arama yapabilirsiniz.
+                            Advanced Search özelliği ile detaylı aramalar da mümkündür.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="accordion-item border-0 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                            <i class="bi bi-envelope me-2 text-success"></i>İlan sahibi ile nasıl iletişim kurarım?
+                        </button>
+                    </h2>
+                    <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            İlan detay sayfasında "İletişime Geç" butonuna tıklayabilirsiniz.
+                            Mesajınız doğrudan ilanı yayınlayan kişiye iletilecektir.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 bg-light mb-4 position-sticky" style="top: 20px;">
+                <div class="card-body text-center">
+                    <i class="bi bi-chat-dots-fill fs-1 text-success mb-3 d-block"></i>
+                    <h5 class="fw-bold mb-3">Sorunuz mu var?</h5>
+                    <p class="text-muted small mb-3">Burada bulamamanız durumunda bizimle iletişime geçin.</p>
+                    <a href="/Home/Contact" class="btn btn-success btn-sm w-100">
+                        <i class="bi bi-telephone me-2"></i>İletişime Geç
+                    </a>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom border-success border-opacity-25">
+                    <h5 class="mb-0 fw-bold">Hızlı Linkler</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="/" class="text-success text-decoration-none">
+                                <i class="bi bi-house-door me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/Property" class="text-success text-decoration-none">
+                                <i class="bi bi-building me-2"></i>İlanlar
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/Home/About" class="text-success text-decoration-none">
+                                <i class="bi bi-info-circle me-2"></i>Hakkında
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/Contact" class="text-success text-decoration-none">
+                                <i class="bi bi-envelope me-2"></i>İletişim
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

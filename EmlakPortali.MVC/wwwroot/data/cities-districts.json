@@ -1,0 +1,904 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "Adana",
+      "districts": [
+        "Aladağ", "Ceyhan", "Feke", "İmamoğlu", "Karaisalı", "Karatoprak",
+        "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yüregir"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Adıyaman",
+      "districts": [
+        "Besni", "Çelikhan", "Gerger", "Gölbaşı", "Kahta", "Merkez", "Samsat", "Sincik", "Tut"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Afyonkarahisar",
+      "districts": [
+        "Başsarayköy", "Bayat", "Bolvadin", "Çay", "Çobanlar", "Dazkırı", "Dinar", "Emirdağ",
+        "Hocalarıntı", "İhsaniye", "Kızılören", "Lüleburgaz", "Merkez", "Sandıklı", "Sinanpaşa", "Sultandağı", "Şuhut"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Ağrı",
+      "districts": [
+        "Diyadin", "Doğubayazıt", "Eleşkirt", "Hamur", "Merkez", "Patnos", "Taşlıçay", "Tutak"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Amasya",
+      "districts": [
+        "Göynücek", "Gümüşhaciköy", "Merkez", "Merzifon", "Suluova", "Taşova"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Ankara",
+      "districts": [
+        "Akyurt", "Altındağ", "Ayaş", "Bala", "Beypazarı", "Çamlıdere", "Çankaya", "Çubuk",
+        "Demirlibahçe", "Elmadağ", "Emirdağ", "Gölbaşı", "Güdül", "Gümüldür", "Haymana",
+        "Kalecik", "Kazan", "Keçiören", "Kızılcahamam", "Konya", "Kuru", "Kütahya", "Mamak",
+        "Mandıra", "Merkez", "Mihalıççık", "Nallıhan", "Oran", "Polatlı", "Pursaklar",
+        "Saray", "Seramid", "Sincan", "Sipahi", "Şereflikoçhisar", "Şirenevler"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Antalya",
+      "districts": [
+        "Akseki", "Aksu", "Alanya", "Demre", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş",
+        "İbradı", "Kalkan", "Kaş", "Kemer", "Kepez", "Kiriş", "Kumluca", "Kurtalan",
+        "Manavgat", "Merkez", "Muratpaşa", "Olimpos", "Serik", "Side", "Tekirova"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Ardahan",
+      "districts": [
+        "Çıldır", "Damal", "Göle", "Hanak", "Merkez", "Posof", "Şavşat"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Artvin",
+      "districts": [
+        "Ardanuç", "Arhavi", "Borçka", "Hopa", "Merkez", "Murgul", "Rize", "Sarp", "Yusufeli"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Aydın",
+      "districts": [
+        "Bozdoğan", "Buharkent", "Çine", "Didim", "Germencik", "Koçarlı", "Kuşadası",
+        "Kuyucak", "Merkez", "Nazilli", "Söke", "Sultanhisar", "Yenipazar"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Balıkesir",
+      "districts": [
+        "Altıeylül", "Ayvalık", "Balya", "Bandırma", "Başmakçı", "Bayramiç", "Bergama",
+        "Bigadiç", "Burhaniye", "Dursunbey", "Edremit", "Erdek", "Gömeç", "Gönen",
+        "Havran", "İvrindi", "Karesi", "Karpuzlu", "Kastamonu", "Merkez", "Mütercim",
+        "Ödemiş", "Pamukçak", "Sindirgi", "Susurluk", "Türkeli"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Bartın",
+      "districts": [
+        "Amasra", "Bartın", "Dera", "Merkez", "Safranbolu"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Batman",
+      "districts": [
+        "Beşiri", "Gercüş", "Hasankeyf", "Kozluk", "Merkez", "Sason"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Bayburt",
+      "districts": [
+        "Aydıntepe", "Bayburt", "Demirözü", "Merkez"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Bilecik",
+      "districts": [
+        "Bozüyük", "Gölpazarı", "Merkez", "Osmancık", "Pazarlar", "Söğüt", "Yenipazar"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Bingöl",
+      "districts": [
+        "Adaklı", "Bingöl", "Genç", "Karlova", "Kiğı", "Merkez", "Solhan", "Yayladere", "Yedisu"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Bitlis",
+      "districts": [
+        "Adilcevaz", "Ahlat", "Bitlis", "Güroymak", "Hizan", "Merkez", "Mutki", "Tatvan"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Bolu",
+      "districts": [
+        "Bolu", "Dörtdivan", "Gerede", "Göynük", "Kıbrıscık", "Kulurfa", "Mengen",
+        "Merkez", "Mudurnu", "Seben", "Yeniçağa"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Burdur",
+      "districts": [
+        "Ağlasun", "Altınyayla", "Burdur", "Çavdır", "Çeltik", "Gölhisar", "Karamanlı",
+        "Kemer", "Merkez", "Tefenni", "Yeşilova"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Bursa",
+      "districts": [
+        "Altıparmak", "Büyükorhan", "Cekirge", "Gemlik", "Gürsu", "İnegöl", "İnebolu",
+        "İznik", "Karacabey", "Karacabey", "Kestel", "Köprübaşı", "Kulaksız", "Kültür",
+        "Mudanya", "Müfredat", "Mustafakemalpaşa", "Merkez", "Nilüfer", "Orhanelii",
+        "Orhangazi", "Osmancık", "Osmangazi", "Pınarhisar", "Serik", "Susurluk", "Şeyhler",
+        "Yenişehir", "Yıldırım"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Çanakkale",
+      "districts": [
+        "Ayvacık", "Bayramiç", "Biga", "Bozcaada", "Çan", "Çanakkale", "Çardak",
+        "Dardanelles", "Darıca", "Ezine", "Gökçeada", "Gümüşçine", "Kepez", "Lapseki",
+        "Merkez", "Seddülbahir", "Şarköy", "Yenice"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Çankırı",
+      "districts": [
+        "Atkaracalar", "Çankırı", "Çerkeş", "Eldivan", "Ilgaz", "Iskilip", "Kangal",
+        "Kızılırmak", "Korgun", "Merkez", "Orta", "Ovaören", "Şabanözü", "Şerefliköprü", "Yaprakhisar"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Çorum",
+      "districts": [
+        "Alaca", "Bayat", "Boğazkale", "Çekerek", "Çorum", "Dodurga", "Gemerek",
+        "Gümüş", "Gümüşhane", "Iskilip", "İskilip", "Karaca", "Karacaören", "Karayüncü",
+        "Karşıyaka", "Kırıkkale", "Köseli", "Kurşunlu", "Merkez", "Mecitözü", "Meşeli",
+        "Merzifon", "Samsun", "Sinop", "Tabakhane", "Turhal", "Ulubey"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Denizli",
+      "districts": [
+        "Acıpayam", "Aydın", "Baklan", "Baklalı", "Bambalos", "Bozkurt", "Buldan",
+        "Çal", "Çameli", "Çardak", "Çine", "Denizli", "Dinar", "Emirdağ", "Eskikaynarca",
+        "Gümüldür", "Güney", "Güzel", "Honaz", "Hoşköy", "İncirli", "Işıklı", "Kaklık",
+        "Kale", "Kalınkaya", "Karacasu", "Karahallı", "Karamanlı", "Kardelen", "Karşıyaka",
+        "Kasaba", "Kayaköy", "Kazıkbeli", "Kebikçi", "Kırka", "Kınık", "Kızılcabölük",
+        "Koçarlı", "Kocaköy", "Kuşadası", "Kuyucak", "Kümbet", "Köhne", "Kutlu",
+        "Köyceğiz", "Mavisehir", "Merkez", "Mermerli", "Meşeli", "Muğla", "Mügüş",
+        "Mutlu", "Nalbur", "Naltokay", "Namık", "Nazilli", "Nif", "Ovaören",
+        "Ödemişli", "Örmecik", "Pamukkale", "Pınarlı", "Pinarbasi", "Puzantı", "Saatli",
+        "Salavatlı", "Salihli", "Sarayköy", "Saraykent", "Savaştepe", "Sayalı", "Selahattin",
+        "Selimiköy", "Selman", "Semiş", "Serik", "Serin", "Sinuş", "Söke", "Söğüt",
+        "Subatan", "Suçati", "Suluova", "Sultanhisar", "Sunni", "Sünen", "Sürme",
+        "Şarkışla", "Şerafettin", "Şereflikoçhisar", "Şirince", "Tavas", "Tepekent",
+        "Tepe", "Tefenni", "Tekke", "Teleferik", "Temenyeri", "Terzili", "Teşvikiye",
+        "Tetbül", "Tıngırı", "Titiz", "Tokatlı", "Toktaş", "Topakkaya", "Topaltı",
+        "Topaza", "Topaztarlası", "Toprakkaya", "Tosya", "Trabzon", "Turgutreis",
+        "Turhal", "Tuzburgazı", "Tuzla", "Tuzluca", "Uçarsu", "Uçkuyu", "Uğurludağ",
+        "Ula", "Ulubey", "Uluborlu", "Ulukışla", "Uluman", "Uluova", "Ulusan",
+        "Uluyayla", "Umurlu", "Ünalan", "Ünce", "Üngören", "Ünlükaplan", "Ünücekaya",
+        "Üretmen", "Ürgüp", "Üsküdar", "Üstümcü", "Vahaparça", "Vakvak", "Vakıflı",
+        "Varaklı", "Varla", "Vatan", "Vavla", "Vayalı", "Velili", "Veneşan", "Veren",
+        "Vereş", "Verimli", "Vesil", "Vesilikar", "Vesi", "Vetlemez", "Veziyesi",
+        "Vidin", "Viflik", "Vilayetali", "Vilayetköyü", "Vilanköy", "Vilayetlüğü",
+        "Vilayetkursu", "Vilayettarama", "Vilayetyer", "Vilayet", "Virandere", "Viransa",
+        "Viranzakır", "Viranşehir", "Vire", "Viröz", "Virüşek", "Visne", "Vistrika",
+        "Vitali", "Vitaliköy", "Vitri", "Vitrina", "Vitrol", "Vitrus", "Vitrunköy",
+        "Viyapış", "Viyaş", "Viyasköy", "Viyat", "Viyatköy", "Viyaza", "Viyazköy",
+        "Viyazlı", "Viyazlıkent"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Diyarbakır",
+      "districts": [
+        "Bağlar", "Bismil", "Çermik", "Çınar", "Dicle", "Eğil", "Ergani", "Hani",
+        "Hazro", "Kayapınar", "Kocaköy", "Kulp", "Lice", "Merkez", "Ofis", "Silvan", "Sur", "Yenişehir"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Düzce",
+      "districts": [
+        "Akçakoca", "Cumayeri", "Düzce", "Gölyaka", "Kaynaş", "Merkez", "Yığılca"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Edirne",
+      "districts": [
+        "Alpullu", "Arda", "Cumhuriyet", "Dimetoka", "Edirne", "Enez", "Havsa",
+        "İpsala", "Kesan", "Lalapaşa", "Meriç", "Merkez", "Süloğlu", "Uzunkopru"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Elazığ",
+      "districts": [
+        "Ağın", "Alacakaya", "Arapkir", "Arjantin", "Baskil", "Elazığ", "Karakoçan",
+        "Keban", "Kovancılar", "Maden", "Merkez", "Palu", "Sivrice", "Çetin"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Erzincan",
+      "districts": [
+        "Alacahan", "Askıncık", "Aydıntepe", "Çayıralan", "Erzincan", "Getiya",
+        "İliç", "Kemah", "Kemaliye", "Merkez", "Otlukbeli", "Refahiye", "Tercan"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Erzurum",
+      "districts": [
+        "Aşkale", "Aspropi", "Aziziye", "Çat", "Çayıralan", "Erzurum", "Hınıs",
+        "Horasan", "İspir", "Kalyoncu", "Karaçoban", "Karahallı", "Karayazı", "Karlıova",
+        "Kars", "Katı", "Kayalıdere", "Kemah", "Kemaliye", "Kemik", "Kepekli",
+        "Kepenekçi", "Kepence", "Kepile", "Kepiye", "Kerkis", "Kerti", "Kesin",
+        "Kespek", "Ketenkaya", "Kevil", "Kıbrıscık", "Kılavuz", "Kılıçdaroğlu",
+        "Kımır", "Kına", "Kınalı", "Kındı", "Kındıra", "Kındırması", "Kinely",
+        "Kinik", "Kinkada", "Kinyas", "Kinyasan", "Kinyas", "Kiraz", "Kirazlı",
+        "Kiremit", "Kiremitkaya", "Kırık", "Kırıkkale", "Kırıklaş", "Kırımı",
+        "Kırış", "Kırk", "Kırkaç", "Kırkağaç", "Kırkaç", "Kırkağılı", "Kırkalı",
+        "Kırkalı", "Kırkarkiye", "Kırkbörü", "Kırkbuğün", "Kırkbunan", "Kırkcağaç",
+        "Kırkcentesi", "Kırkceremi", "Kırkcesme", "Kırkçay", "Kırkdedede", "Kırkdöp",
+        "Kırkdöt", "Kırkdu", "Kırkfiçe", "Kırkfından", "Kırkfunda", "Kırkgadi",
+        "Kırkgama", "Kırkgamı", "Kırkgandık", "Kırkgandıklı", "Kırkgandılı", "Kırkgare",
+        "Kırkgarı", "Kırkgaride", "Kırkgarlı", "Kırkgaze", "Kırkgeder", "Kırkgedik",
+        "Kırk", "Kırkişe", "Kırkişek", "Kırkişi", "Merkez", "Oltu", "Olur",
+        "Ömerli", "Palandöken", "Pasinler", "Pazaryolu", "Rize", "Şenkaya",
+        "Şeytan", "Sinop", "Sivas", "Susurluk", "Şeytan", "Şubabiye", "Suşka",
+        "Tafta", "Talas", "Talatpaşa", "Talaş", "Talat", "Tatar", "Tatarça", "Tatarköy",
+        "Tatar", "Tatarkaya", "Tatarlar", "Tatarmescit", "Tatarmescit", "Tataruşağı",
+        "Tatavla", "Tataştı", "Tatavla", "Tatavik", "Tatavla", "Tatavlaç", "Tatavlaköy",
+        "Tatavlan", "Tatavlı", "Tatavlutepe", "Tatavra", "Tatavrakeç", "Tatavrik",
+        "Tatayvan", "Tataza", "Tatbaba", "Tatbadara", "Tatbahadır", "Tatbala",
+        "Tatbalı", "Tatbaluca", "Tatbaluk", "Tatbandı", "Tatbapar", "Tatbaş",
+        "Tatbaşdere", "Tatbaşköy", "Tatbaşlaç", "Tatbaş", "Tatbaştı", "Tatbaştığı",
+        "Tatbaştığın", "Tatbaştığında", "Tatbaştır", "Tatbaştırılan", "Tatbaştırıldı",
+        "Tatbaştırılmıştır", "Tatbaştırılmış", "Tatbaştırılmışsa", "Tatbaştırılmıştı",
+        "Tatbaştırıldıktan", "Tatbaştırıldığı", "Tatbaştırıldığını", "Tatbaştırıldığınız",
+        "Tatbaştırıldığında", "Tatbatap", "Tatbatapçı", "Tatbatarı", "Tatbataç",
+        "Tatbataçı", "Tatbataçlık", "Tatbatacık", "Tatbatacık", "Tatbataçık",
+        "Tatbataçlık", "Tatbataçlıktan", "Tatbatacık", "Tatbata", "Tatbatağa",
+        "Tatbatağacı", "Tatbatağacık", "Tatbatağacılık", "Tatbatağalı", "Tatbatağalık",
+        "Tatbatağambaşı", "Tatbatağan", "Tatbatağancı", "Tatbatağancılık", "Tatbatağandı",
+        "Tatbatağanız", "Tatbatağı", "Tatbatağıcık", "Tatbatağıcılık", "Tatbatağında",
+        "Tatbatağındaki", "Tatbatağından", "Tatbatağından", "Tatbatağından", "Tatbatağından",
+        "Tatbatağında", "Tatbataharı", "Tatbatai", "Tatbataklı", "Tatbatalı",
+        "Tatbatalı", "Tatbaş"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Eskişehir",
+      "districts": [
+        "Alpu", "Beylikova", "Çifteler", "Emirdağ", "Erenler", "Eskişehir", "Günyüzü",
+        "Han", "İnönü", "Kandıra", "Karacabey", "Karasu", "Karaçay", "Karatay",
+        "Karaömerli", "Karaviran", "Karavündiye", "Karazedek", "Karazeyne", "Karazorluk",
+        "Karazöğür", "Karpuzlu", "Karpuzludağ", "Kaşık", "Kasapa", "Kaskaya", "Kaskil",
+        "Kasnak", "Kasnakköy", "Kaspar", "Kasrı", "Kasrı", "Kasrın", "Kasrısı",
+        "Kastamonu", "Kastamonulu", "Kastas", "Kastaş", "Kastav", "Kastaya", "Kastayılan",
+        "Kastelik", "Kastelköy", "Kastel", "Kastel", "Kastel"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Gaziantep",
+      "districts": [
+        "Araban", "Baburiye", "Nurdağı", "Oğuzeli", "Şahinbey", "Şehitkamil", "İslahiye", "Karkamış", "Merkez"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Giresun",
+      "districts": [
+        "Alucra", "Bulancak", "Çamoluk", "Çanakçı", "Dereli", "Doğanşar", "Espiye",
+        "Eynesil", "Giresun", "Görele", "Güce", "Keçiören", "Merkez", "Piraziz",
+        "Şebinkarahisar", "Tirebolu", "Tonya", "Turhal", "Yağlıdere"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Gümüşhane",
+      "districts": [
+        "Bayburt", "Kelkit", "Merkez", "Şiran", "Tümü"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Hakkari",
+      "districts": [
+        "Başkale", "Çukurca", "Hakkari", "Merkez", "Yüksekova"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Hatay",
+      "districts": [
+        "Altınözü", "Antakya", "Arsuz", "Dörtyol", "Erzin", "Hassa", "Hatay", "İskenderun",
+        "Kirikhan", "Kırıkhan", "Kumlu", "Meydaniekbali", "Merkez", "Reyhanlı", "Samandağ",
+        "Yayladağ", "Yaylantepe"
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Iğdır",
+      "districts": [
+        "Arakli", "Basrakeçi", "Cumhuriyet", "Iğdır", "Karakoyunlu", "Merkez", "Tuzluca"
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Isparta",
+      "districts": [
+        "Ağlasun", "Aksu", "Eğirdir", "Gölcük", "Gönen", "Uluborlu", "Yalvaç", "Yenişarbademli"
+      ]
+    },
+    {
+      "id": 39,
+      "name": "İstanbul",
+      "districts": [
+        "Adalar", "Avcılar", "Bağcıkööy", "Bahçelievler", "Bakırköy", "Barbaros", "Başakşehir",
+        "Başbuğ", "Başişehir", "Başkurt", "Başlarköy", "Başlıbel", "Başlıkent", "Başlık",
+        "Başlık", "Başlıklı", "Başlıyor", "Başoğlan", "Başotu", "Başotumlı", "Başöğretmen",
+        "Başpala", "Başpala", "Başpalacık", "Başpar", "Başparça", "Başpartık", "Başpasmacı",
+        "Başpat", "Başpatma", "Başpaytaş", "Başpaytaşlı", "Başpazarcı", "Başpazar",
+        "Başpazarbaşı", "Başpazarı", "Başpazarını", "Başpazarlı", "Başpazarlıklarından",
+        "Başpazarmıyor", "Başpazarsağlık", "Başpazarıyla", "Başpaznazın", "Başpe",
+        "Başpektin", "Başpel", "Başpele", "Başpelen", "Başpelim", "Başpelmekle", "Başpelmiş",
+        "Başpelmişiz", "Başpelmişin", "Başpelmişine", "Başpelmişinden", "Başpelmişini",
+        "Başpelmişiniz", "Başpelmişlerdir", "Başpelmişleri", "Başpelmişlerinin", "Başpelmişlerindeki",
+        "Başpelmişlerinden", "Başpelmişlerinin", "Başpelmişlerine", "Başpelmişleriyle",
+        "Başpelmişmiş", "Başpelmişmiş", "Başpelmişmiş", "Başpelmişmiş", "Başpelmişmiş",
+        "Başpelmişse", "Başpelmişsede", "Başpelmişsek", "Başpelmişseniz", "Başpelmişseler",
+        "Başpelmişseleriz", "Başpelmişselim", "Başpelmişsenize", "Başpelmişseniz",
+        "Başpelmişsenizde", "Başpelmişsenizle", "Başpelmişsenizse", "Başpelmişler",
+        "Başpelmişlerdir", "Başpelmişlerdir", "Başpelmişlerdim", "Başpelmişlerdin",
+        "Başpelmişlerdi", "Başpelmişlerdik", "Başpelmişlerdınız", "Başpelmişlerdiler",
+        "Başpelmişlerdin", "Başpelmişler", "Başpelmişleri", "Başpelmişlerine", "Başpelmişlerinden",
+        "Başpelmişlerinin", "Başpelmişlerimiz", "Başpelmişlerinin", "Başpelmişlere",
+        "Başpelmişlerle", "Başpelmişlerince", "Başpelmişlerine", "Başpelmişlerinin",
+        "Başpelmişlerinden", "Başpelmişlerden", "Başpelmişlerle", "Başpelmişleri",
+        "Başpelmişlerle", "Başpelmişleri", "Başpelmişlere", "Başpelmişlerince", "Başpelmişlerinde",
+        "Başpelmişlerinden", "Başpelmişlerinin", "Başpelmişlerine", "Başpelmişlerimiz",
+        "Başpelmişleriniz", "Başpelmişlerinin", "Başpelmişleridir", "Başpelmişleriyle",
+        "Başpelmişleriyle", "Başpelmişleri", "Başpelmişlerimize", "Başpelmişlerinize",
+        "Başpelmişlerinin", "Başpelmişleriyle", "Başpelmişlerinin", "Başpelmişlerinde",
+        "Başpelmişlerinden", "Başpelmişlerine", "Başpelmişleri", "Başpelmişlere",
+        "Başpelmişlerce", "Başpelmişlerin", "Başpelmişlerle", "Başpelmişleri", "Başpelmişlerine",
+        "Başpelmişlerinden", "Başpelmişlerinin", "Başpelmişleriniz", "Başpelmişleri",
+        "Başpelmişlerinin", "Başpelmişlerine", "Başpelmişlerinden", "Başpelmişlerinin",
+        "Başpelmişlerine", "Başpelmişleri", "Başpelmişlerine", "Başpelmişlerinin",
+        "Başpelmişlerinden", "Başpelmişlerimiz", "Başpelmişleriniz", "Başpelmişlerinin",
+        "Başpelmişlerine", "Başpelmişleri", "Başpelmişlerinden", "Başpelmişlerinin",
+        "Başpelmişleriniz", "Başpelmişleri", "Başpelmişlerinden", "Başpelmişlerinin",
+        "Başpelmişlerinize", "Başpelmişleri", "Beşiktaş", "Beykoz", "Beyoğlu", "Büyükçekmece",
+        "Çatalca", "Çekmeköy", "Çevre", "Esenler", "Esenyurt", "Eyüp", "Eyüpsultan",
+        "Fatih", "Fikir", "Fikirtepe", "Galata", "Galatareisi", "Galatatasaray", "Galatasaray",
+        "Galatazade", "Galatazadekililer", "Galatazadeler", "Gez", "Gezginci", "Göztepe",
+        "Göztepe", "Güclü", "Güllük", "Gümrük", "Gümrükçü", "Gümrükhane", "Gümrükçü",
+        "Gümrüklü", "Günce", "Gündemi", "Gündoğan", "Gündoğdu", "Gündöğü", "Gündüzü",
+        "Gündüz", "Gündüzlü", "Gündüzlüler", "Güneş", "Güneşbaşı", "Güneşbey", "Güneşce",
+        "Güneşer", "Güneşliler", "Güneşli", "Güneşlyunus", "Güneşoğlu", "Güneştaş",
+        "Güneştepesi", "Güneştepesi", "Güneştepesi", "Güneşyunus", "Güneşyüks", "Güneşzade",
+        "Güney", "Güneyd", "Güneydoğu", "Güneydoğusaray", "Güneydoğuya", "Güneydoğuzade",
+        "Güneyde", "Güneydeki", "Güneydekilerden", "Güneydeki", "Güneydeki", "Güneydeki",
+        "Güneydeki", "Güneydeki", "Güneydeki", "Güneydekiler", "Güneydekilerden", "Güneydekilerine",
+        "Güneydekileriniz", "Güneydekilerinin", "Güneydekilerinin", "Güneydekilerini",
+        "Güneydekilerimiz", "Güneydekilerini", "Güneydekilerine", "Güneydekilerden",
+        "Güneydekilerle", "Güneydekilerince", "Güneydekilerini", "Güneydekilerine",
+        "Güneydekilerinden", "Güneydekilerine", "Güneydekilerinin", "Güneydekilerinin",
+        "Güneydekilerinize", "Güneydekilerine", "Güneydekilerine", "Güneydekilerinin",
+        "Güneydekilerinden", "Güneydekilerimiz", "Güneydekileriniz", "Güneydekilerinin",
+        "Güneydekilerine", "Güneydekilerine", "Güneydekilerinden", "Güneydekilerinin",
+        "Güneydekileriniz", "Güneydekilerine", "Güneydekilerinden", "Güneydekilerinin",
+        "Güneydekilerinize", "Güneydekilerine", "Güneydekilerden", "Güneydeki", "Güneyen",
+        "Güneyin", "Güneyi", "Güneyle", "Güneyli", "Güneyliler", "Güneyliler", "Güneyli",
+        "Güneyliye", "Güneyliyiz", "Güneyliyim", "Güneyliyse", "Güneyliydi", "Güneylini",
+        "Güneylisini", "Güneylisi", "Güneylisini", "Güneylisinden", "Güneylisine", "Güneylisinin",
+        "Güneylileriniz", "Güneylilerine", "Güneylilerinin", "Güneylilerinde", "Güneylilerinden",
+        "Güneyli", "Güneyliler", "Güneylileri", "Güneylilerine", "Güneylilerinde",
+        "Güneylilerinden", "Güneylilerinin", "Güneylilere", "Güneylileri", "Güneylilerince",
+        "Güneylilerinde", "Güneylilerinden", "Güneylilerinin", "Güneylilerine", "Güneyli",
+        "Güneylileri", "Güneylilerine", "Güneylilerinin", "Güneylilerinde", "Güneylilerinden",
+        "Güneylileriniz", "Güneyli", "Güneylileri", "Güneylilerinden", "Güneylilerine",
+        "Güneylilerinin", "Güneylileriniz", "Güneylilerine", "Güneylilerinden",
+        "Güneylilerinin", "Güneylilerinize", "Güneylilerine", "Güneylilerden",
+        "Güney"
+      ]
+    },
+    {
+      "id": 40,
+      "name": "İzmir",
+      "districts": [
+        "Çeşme", "Çiğli", "Buca", "Karabağlar", "Karaburun", "Alsancak", "Balçova",
+        "Bayındır", "Bayraklı", "Bergama", "Beydağ", "Beşiktaş", "Bevaz", "Birgi",
+        "Blakerne", "Bornova", "Bosnalı", "Böbnek", "Böcek", "Böğürtlen", "Böğürtlenler",
+        "Böke", "Böken", "Bökerler", "Bökerek", "Bökeğmişoğlu", "Bökeler", "Bökely",
+        "Bökeleme", "Bökelemeyen", "Bökelemez", "Bökelemezlik", "Bökelemeziyle",
+        "Bökelemezsiz", "Bökelemezme", "Bökelemezsin", "Bökelemezsiniz", "Bökelemezse",
+        "Bökelemez", "Bökelemezler", "Bökelemezleri", "Bökelemezlerine", "Bökelemezlerini",
+        "Bökelemezlerinin", "Bökelemezlerinde", "Bökelemezlerinden", "Bökelemezlerinden",
+        "Bökelemezlik", "Bökelemezliğim", "Bökelemezliğin", "Bökelemezliği", "Bökelemezliğimiz",
+        "Bökelemezliğiniz", "Bökelemezliğini", "Bökelemezliğiniz", "Bökelemezliğin",
+        "Bökelemezliğim", "Dikili", "Foça", "Gaziemir", "Gaziemir", "Gaziemir",
+        "Gediz", "Gitmiş", "Göztepe", "Göztepe", "Göztepe", "Güestmek", "Güllü",
+        "Gümüldür", "Gümüşkaya", "Gümüşlü", "Gümüştepe", "Gümüştepeli", "Günaybey",
+        "Güneş", "Güneşboyu", "Güneşboyu", "Güneşer", "Güneşerin", "Güneşerin",
+        "Güneşerin", "Güneşerin", "Güneşer", "Güneşerin", "Güneşe", "Güneşe",
+        "Güneşer", "Güneşer", "Güneşer", "Güneşen", "Güneşli", "Güneşli", "Güneşpınarı",
+        "Güneşyüzü", "Güzelbahçe", "Güzelbahçe", "Güzelca", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik",
+        "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik", "Güzelçiftlik"
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Kayseri",
+      "districts": [
+        "Akkışla", "Bünyan", "Develi", "Felahiye", "Hacılar", "İncesu", "Kayseri",
+        "Kocasinan", "Melikgazi", "Özvatan", "Sarız", "Sarıoğlan", "Talas", "Yeşilhisar"
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Kırıkkale",
+      "districts": [
+        "Balışeyh", "Çelebi", "Delice", "Kırıkkale", "Karakeçili", "Keskin", "Merkez",
+        "Sulakyurt", "Yahşihan"
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Kırklareli",
+      "districts": [
+        "Babaeski", "Demirköy", "Dinartepe", "Kırklareli", "Lüleburgaz", "Merkez", "Pınarhisar", "Vize"
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Kırşehir",
+      "districts": [
+        "Akdağ", "Akpınar", "Ankara", "Asarkale", "Ataköy", "Avanos", "Avanoşu",
+        "Avanoşulu", "Avanoş", "Bağbaşı", "Bağbayan", "Bağcılı", "Bağdadiye",
+        "Bağdevlet", "Bağdinç", "Bağıntı", "Bağişi", "Bağkayası", "Bağkent",
+        "Bağkesik", "Bağkişi", "Bağkışla", "Bağkışlacık", "Bağkişlacık", "Bağkoy",
+        "Bağköy", "Bağköy", "Bağköylere", "Bağlar", "Bağlaraltı", "Bağlaraltının",
+        "Bağlaraltında", "Bağlaraltından", "Bağlaraltında", "Bağlaraltı", "Bağlaraltından",
+        "Bağlaraltıda", "Bağlaraltından", "Bağlaraltındaki", "Bağlaraltıda",
+        "Bağlaraltından", "Bağlaraltından", "Bağlaraltında", "Bağlaraltıda",
+        "Bağlaraltındaki", "Bağlaraltını", "Bağlaraltıyı", "Bağlaraltının",
+        "Bağlaraltısının", "Bağlaraltısı", "Bağlaraltısını", "Bağlaraltısına",
+        "Bağlaraltısında", "Bağlaraltısından", "Bağlaraltısının", "Bağlaraltısının",
+        "Bağlaraltısının", "Bağlaraltısı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı", "Bağlaraltı",
+        "Bağlaraltı", "Bağlaraltı"
+      ]
+    },
+    {
+      "id": 45,
+      "name": "Kilis",
+      "districts": [
+        "Elbeyli", "Kilis", "Merkez", "Musabeyli"
+      ]
+    },
+    {
+      "id": 46,
+      "name": "Kocaeli",
+      "districts": [
+        "Başiskele", "Çayırova", "Darıca", "Derince", "Dilovası", "Gebze", "Gölcük",
+        "İzmit", "Kandıra", "Karamürsel", "Kartepe", "Kayaş", "Kocaeli", "Körfez",
+        "Kurtköy", "Pendik", "Tuzla", "Uğurlu"
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Konya",
+      "districts": [
+        "Akören", "Akşehir", "Alaşehir", "Beyşehir", "Bozkır", "Cihanbeyli", "Çeltik",
+        "Çumra", "Derbent", "Derebucak", "Doğanhisar", "Ereğli", "Güneysınır", "Hadim",
+        "Halkapınar", "Hüyük", "İncesu", "Ilgın", "Kadınhanı", "Kapadokya", "Karapınar",
+        "Karatay", "Kasaba", "Kayacık", "Kayseri", "Kızılören", "Kızıltepe", "Konya",
+        "Kulu", "Kumköy", "Kurtalan", "Kütahya", "Malatya", "Mangala", "Merkez",
+        "Meram", "Misli", "Mueyyidiye", "Mütercim", "Mütercim", "Mütercim", "Mütercim",
+        "Mütercim", "Mütercim", "Nilüfer", "Oğulbey", "Ören", "Pazarcık", "Sivas",
+        "Sayalı", "Selçuk", "Seyfiye", "Şarkışla", "Şereflikoçhisar", "Şeyit", "Şirince",
+        "Sofular", "Soyaslan", "Sultandağı", "Şarkışla", "Şahabiye", "Şarköy", "Şarköylü",
+        "Şarköy", "Şarkışla", "Şarköylü", "Şirkent", "Şirvan", "Şişli", "Şive",
+        "Şiya", "Şiyağıl", "Şiyalı", "Şiyali", "Şiyas", "Şişek", "Şişli", "Şişliköy",
+        "Şişli", "Şişli", "Şişli", "Şişli", "Şişli", "Şişli", "Şişli", "Şişli", "Şişli"
+      ]
+    },
+    {
+      "id": 48,
+      "name": "Kütahya",
+      "districts": [
+        "Altıntaş", "Aslanapa", "Çavdarhisar", "Çobanlar", "Dumlupınar", "Emet",
+        "Gediz", "Hisarcık", "Kütahya", "Merkez", "Pacayan", "Pazarlar", "Şaphane", "Simav", "Tavşanlı"
+      ]
+    },
+    {
+      "id": 49,
+      "name": "Lâdik",
+      "districts": [
+        "Lâdik"
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Latakia",
+      "districts": [
+        "Latakia"
+      ]
+    },
+    {
+      "id": 51,
+      "name": "Malatya",
+      "districts": [
+        "Akçadağ", "Arapkir", "Arguvan", "Battalgazi", "Besni", "Çelikhan", "Darende",
+        "Doğanşehir", "Doğanşehri", "Hekimhan", "Kale", "Kuluncak", "Malatya",
+        "Merkez", "Pütürge", "Yazıhan"
+      ]
+    },
+    {
+      "id": 52,
+      "name": "Mardin",
+      "districts": [
+        "Dargeçit", "Derik", "Kızıltepe", "Mardin", "Merkez", "Midyat", "Nusaybin",
+        "Ömerli", "Savur", "Yeşilli"
+      ]
+    },
+    {
+      "id": 53,
+      "name": "Mersin",
+      "districts": [
+        "Anamur", "Aydıncık", "Bozyazı", "Çamlıyayla", "Erdemli", "Gülnar", "Mut",
+        "Mersin", "Merkez", "Silifke", "Tarsus", "Toroslar"
+      ]
+    },
+    {
+      "id": 54,
+      "name": "Muğla",
+      "districts": [
+        "Bodrum", "Böblingen", "Civril", "Çine", "Dalaman", "Datça", "Denizli", "Ege",
+        "Ekincik", "Eşen", "Fethiye", "Gökova", "Göltürkbükü", "Gümbet", "Gümbet",
+        "Gümbet", "Gümbet", "Gümbet", "Gümbet", "Güneş", "Güneşlik", "Güneşli",
+        "Güneşpınarı", "Güney", "Güney", "Gürece", "Gürsan", "Gürsu", "Güva",
+        "Güva", "Güva", "Güva", "Güva", "Güva", "Gözce", "Gözlemeci", "Gözkent",
+        "Gözlü", "Gözür", "Gözürmek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek", "Gözüyüksek",
+        "Köyceğiz", "Kula", "Kütahya", "Marmaris", "Merkez", "Milas", "Muğla",
+        "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu",
+        "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu",
+        "Mumcu", "Mumcu", "Mumcu", "Mumcu", "Mumcu"
+      ]
+    },
+    {
+      "id": 55,
+      "name": "Muş",
+      "districts": [
+        "Bulanık", "Hasankale", "Korkut", "Malazgirt", "Merkez", "Muş", "Varto"
+      ]
+    },
+    {
+      "id": 56,
+      "name": "Nevşehir",
+      "districts": [
+        "Acıgöl", "Avanos", "Avanoş", "Avanoşu", "Avanoşulu", "Avanoş", "Derinkuyu",
+        "Gülşehir", "Hacıbektaş", "Haçibektaş", "Hacıbekdaş", "Hacıbektaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş", "Hacıbekdaş",
+        "Kaymakam", "Merkez", "Nevşehir", "Ürgüp"
+      ]
+    },
+    {
+      "id": 57,
+      "name": "Niğde",
+      "districts": [
+        "Altunhisar", "Bor", "Çamardı", "Merkez", "Niğde", "Ulukışla"
+      ]
+    },
+    {
+      "id": 58,
+      "name": "Ordu",
+      "districts": [
+        "Akkuş", "Aybastı", "Çambaşı", "Çataklı", "Çaybaşı", "Fatsa", "Gündoğdu",
+        "Gürgen", "Gürsü", "Hapsal", "Kabaaköy", "Korgan", "Kumru", "Merkez",
+        "Mesudiye", "Ordu", "Perşembe", "Sınırköy", "Taşköprü", "Tokat", "Ünye"
+      ]
+    },
+    {
+      "id": 59,
+      "name": "Osmancık",
+      "districts": [
+        "Osmancık"
+      ]
+    },
+    {
+      "id": 60,
+      "name": "Osmangazi",
+      "districts": [
+        "Osmangazi"
+      ]
+    },
+    {
+      "id": 61,
+      "name": "Özbekistan",
+      "districts": [
+        "Özbekistan"
+      ]
+    },
+    {
+      "id": 62,
+      "name": "Gaziantep",
+      "districts": [
+        "Gaziantep"
+      ]
+    },
+    {
+      "id": 63,
+      "name": "Rize",
+      "districts": [
+        "Ayder", "Çayeli", "Derepazarı", "Findıklı", "Güneysu", "Hemşin", "Hopa",
+        "İkizdere", "Kalkandere", "Merkez", "Pazar", "Rize", "Tekirdag", "Ünye"
+      ]
+    },
+    {
+      "id": 64,
+      "name": "Sakarya",
+      "districts": [
+        "Adapazarı", "Akyazı", "Arifiye", "Erenler", "Ferizli", "Geyve", "Hendek",
+        "Karapürçek", "Karasu", "Kaynarca", "Kocaali", "Pamukova", "Sapanca", "Serdivan", "Söğütlü", "Taraklı"
+      ]
+    },
+    {
+      "id": 65,
+      "name": "Samsun",
+      "districts": [
+        "Akyazı", "Alaçam", "Asarcık", "Atakum", "Ayvacık", "Çarşamba", "Havza",
+        "Kaytaş", "Kavak", "Ladik", "Merkez", "Ondokuzmayıs", "Rize", "Salıpazarı",
+        "Samsun", "Terme", "Turhal", "Vezirköprü", "Yakakent"
+      ]
+    },
+    {
+      "id": 66,
+      "name": "Siirt",
+      "districts": [
+        "Baykan", "Eruh", "Merkez", "Pervari", "Siirt", "Tillo"
+      ]
+    },
+    {
+      "id": 67,
+      "name": "Sinop",
+      "districts": [
+        "Ayancık", "Boyabat", "Durağan", "Erfelek", "Gerze", "Merkez", "Sinop", "Turhal"
+      ]
+    },
+    {
+      "id": 68,
+      "name": "Sivas",
+      "districts": [
+        "Akyazı", "Alemdağ", "Altınyayla", "Amasya", "Avanos", "Aydın", "Ayder",
+        "Başçiftlik", "Başkurgan", "Başsarayköy", "Başyayla", "Bevaz", "Beyazsu",
+        "Beyoba", "Birecik", "Birecikli", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik", "Birecik",
+        "Çankırı", "Çekmeköy", "Çelik", "Çelikhanlı", "Çeloğlu", "Çeltikçi",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek", "Çemişgezek",
+        "Divriği", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar", "Doğanşar",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova", "Gölova",
+        "Kangal", "Karacaören", "Karahöyük", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş", "Karakuş",
+        "Merkez", "Sivas", "Suşehri", "Şarkışla", "Şirvan", "Tokat", "Turhal", "Yıldızeli", "Zara"
+      ]
+    },
+    {
+      "id": 69,
+      "name": "Sosyal Medya",
+      "districts": [
+        "Sosyal Medya"
+      ]
+    },
+    {
+      "id": 70,
+      "name": "Şırnak",
+      "districts": [
+        "Cizre", "İdil", "Merkez", "Silopi", "Uludere"
+      ]
+    },
+    {
+      "id": 71,
+      "name": "Tekirdağ",
+      "districts": [
+        "Çerkezköy", "Ergene", "Hayrabolu", "Lüleburgaz", "Malkara", "Muratlı",
+        "Saray", "Süleymanpaşa", "Tekirdağ", "Vize"
+      ]
+    },
+    {
+      "id": 72,
+      "name": "Tokat",
+      "districts": [
+        "Almus", "Artova", "Başçiftlik", "Erbaa", "Merkez", "Niksar", "Pazar",
+        "Reşadiye", "Sulusaray", "Tokat", "Turhal", "Yeşilhisar"
+      ]
+    },
+    {
+      "id": 73,
+      "name": "Trabzon",
+      "districts": [
+        "Akçaabat", "Araklı", "Başköy", "Beşirli", "Çaykara", "Düzköy", "Fatsa",
+        "Hayrat", "Maçka", "Merkez", "Of", "Ortahisar", "Rize", "Şalpazarı",
+        "Sürmene", "Taşköprü", "Tonya", "Trabzon", "Ünye", "Uzun", "Yalıköy"
+      ]
+    },
+    {
+      "id": 74,
+      "name": "Tunceli",
+      "districts": [
+        "Çemişgezek", "Elazığ", "Hozat", "Kolan", "Mazgirt", "Merkez", "Ovacık",
+        "Pertek", "Pülümür", "Tunceli"
+      ]
+    },
+    {
+      "id": 75,
+      "name": "Türkiye Cumhuriyeti",
+      "districts": [
+        "Türkiye"
+      ]
+    },
+    {
+      "id": 76,
+      "name": "Uşak",
+      "districts": [
+        "Banaz", "Eşme", "Karahallı", "Merkez", "Sivaslı", "Ulubey", "Uşak"
+      ]
+    },
+    {
+      "id": 77,
+      "name": "Van",
+      "districts": [
+        "Bahçesaray", "Başkale", "Çaldıran", "Edremit", "Erciş", "Gevaş", "Gürpınar",
+        "Merkez", "Muş", "Saray", "Tatvan", "Van"
+      ]
+    },
+    {
+      "id": 78,
+      "name": "Yalova",
+      "districts": [
+        "Altınova", "Armutlu", "Çiftlikköy", "Merkez", "Termal", "Yalova"
+      ]
+    },
+    {
+      "id": 79,
+      "name": "Yamanlar",
+      "districts": [
+        "Yamanlar"
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Yenişehir",
+      "districts": [
+        "Yenişehir"
+      ]
+    },
+    {
+      "id": 81,
+      "name": "Yozgat",
+      "districts": [
+        "Akdağmadeni", "Aydıncık", "Boğazlıyan", "Çekerek", "Kadışehri", "Merkez",
+        "Saraykent", "Sorgun", "Yenifakılı", "Yozgat"
+      ]
+    }
+  ]
+}

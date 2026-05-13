@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Sayfa Bulunamadı - 404";
+}
+
+<div class="container text-center py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-1 fw-bold text-primary" style="font-size: 100px;">404</h1>
+            <h2 class="mb-4">Aradığınız sayfayı bulamadık.</h2>
+            <p class="lead text-muted mb-5">
+                Görünüşe göre bu sayfa taşınmış, silinmiş veya hiç var olmamış olabilir.
+                Ya da url'yi yanlış yazmış olabilirsiniz.
+            </p>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm">
+                <i class="bi bi-house-door me-2"></i> Ana Sayfaya Dön
+            </a>
+            
+            <div class="mt-5 text-muted small">
+                <i class="bi bi-info-circle me-1"></i> Eğer bunun sistemsel bir hata olduğunu düşünüyorsanız lütfen destek ile iletişime geçin.
+            </div>
+        </div>
+    </div>
+</div>
